@@ -2,5 +2,14 @@ Requirements:
 Submit two or three alternative project topicson paper at the beginningof class. Include a description of your intended significant software components, each team member’s name, their majorand their assigned responsibilities for the project. You will receive your approved project topic, or a conditionally approvedtopic with clarification request, by Monday, 2/17.Sun.
 
 Software Components-
+Trojan- Run in the background to encrpyt specific external drive.
+Game- To distract user while trojan runs
+(Stretch goal) Social media integration- Post compromised 
 
 Individual Responsibilities-
+Jarod Klypchak- Trojan implementation
+Aidan Globus- Game implementation
+Kat Husar- Game implementation
+Cameron Millspaugh- Game implementation
+Nick Dewey- Trojan implementation 
+Nick Hackman- Game implementation
