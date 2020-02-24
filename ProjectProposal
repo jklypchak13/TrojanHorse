@@ -4,12 +4,12 @@ Submit two or three alternative project topicson paper at the beginningof class.
 Software Components-
 Trojan- Run in the background to encrpyt specific external drive.
 Game- To distract user while trojan runs
-(Stretch goal) Social media integration- Post compromised 
+(Stretch goal) Social media integration- Post compromised files online, 
 
 Individual Responsibilities-
 Jarod Klypchak- Trojan implementation
-Aidan Globus- Game implementation
+Aidan Globus- Game implementation, game logic
 Kat Husar- Game implementation
-Cameron Millspaugh- Game implementation
+Cameron Millspaugh- Game implementation, assets
 Nick Dewey- Trojan implementation 
-Nick Hackman- Game implementation
+Nick Hackman- Game implementation, assets
