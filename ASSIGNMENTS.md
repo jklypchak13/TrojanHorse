@@ -5,3 +5,4 @@
 - Nick Hackman: Create Asset for Horse Protagonist and Load Him in to our game window.
 - Kat Husar: Create Controls for Horse Protagonist to Jump up and Down
 - Jarod Klypchak: Create functionality to go to a given directory, and print each file in it
+  
