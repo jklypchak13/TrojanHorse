@@ -19,7 +19,20 @@ def team_screen(window):
 
     next_screen = team_screen
  
-    draw_text('options', text.default_font, cval.black, window, 20, 20)
+    team_members = [
+            'Aidan Globus', 'Cameron Millspaugh','Jarod Klypchak',
+            'Kat Husar','Nick Dewey','Nick Hackman'
+            ]
+    
+    draw_text('Team Name: Undecided', text.default_font, cval.black, window, 20, 20)
+    
+    loc_x = 20
+    loc_y = 20
+    vert_space = 20
+    for mem in team_members:
+        loc_y += vert_space
+        draw_text(mem, text.default_font, cval.black, window, loc_x, loc_y)
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()

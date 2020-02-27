@@ -14,6 +14,8 @@ from game.style import color as cval
 from game.style import text 
 
 
+background = pygame.image.load(r".\assets\menu\main_menu_background.png")
+
 def draw_text(text, font, color, surface, x, y):
     textobj = font.render(text, 1, color)
     textrect = textobj.get_rect()
@@ -24,15 +26,17 @@ def draw_text(text, font, color, surface, x, y):
 def main_menu(window):
     
     window.fill(cval.black)    #fill window with black
-    draw_text('main menu', text.default_font, cval.white, window, 20, 20)
- 
-    mx, my = pygame.mouse.get_pos()
+    window.blit(background, [0,0])
+    
+    draw_text('main menu', text.default_font, cval.black, window, 400, 200)
  
     button_1 = pygame.Rect(50, 100, 200, 50)
     button_2 = pygame.Rect(50, 200, 200, 50)
 
     pygame.draw.rect(window, cval.green, button_1)
     pygame.draw.rect(window, cval.blue, button_2)
+
+    mx, my = pygame.mouse.get_pos()
     
     clicked = False
     for event in pygame.event.get():
