@@ -32,13 +32,10 @@ def game(screen, main_clock):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
-                if event.key == pygame.K_RIGHT:
-                    player.right()
-                if event.key == pygame.K_SPACE:
-                    player.jump()
+                if event.key in player.controls:
+                    getattr(player,player.controls[event.key])()
 
-            player.draw(screen)
-            pygame.display.update()
+        player.draw(screen)
         pygame.display.update()
         main_clock.tick(60)
 
