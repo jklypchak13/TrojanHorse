@@ -24,7 +24,7 @@ class Player:
     def __init__(self, position: Tuple[int, int, int, int], image_path: str):
         self.position = position
 
-        # TODO: create Asset for Plater
+        # TODO: create Asset for Player
         # self.image = pygame.image.load(image_path)
 
     def jump(self):
