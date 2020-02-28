@@ -4,6 +4,7 @@ from game.style import color as cval
 from game.style import text
 
 from .player import Player
+from .obstacle import Obstacle
 
 
 def draw_text(text, font, color, surface, x, y):
@@ -17,7 +18,8 @@ def game(screen, main_clock):
     running = True
 
     print("FROM GAME: running =", running)
-    player = Player((0, 400, 50, 50), "path_to_player_image")
+    player = Player((0, 400, 50, 50), 'src\assets\game\whiteSquare.png')
+    obstacles = [Obstacle((400,400,50,50), "path_to_obstacle_image")]
 
     while running:
         running = True
@@ -35,7 +37,13 @@ def game(screen, main_clock):
                 if event.key in player.controls:
                     getattr(player,player.controls[event.key])()
 
+        #Check collisions
+        for obstacle in obstacles:
+            if player.is_collided_with(obstacle):
+                print("Collided")
         player.draw(screen)
+        for obstacle in obstacles:
+            obstacle.draw(screen)
         pygame.display.update()
         main_clock.tick(60)
 

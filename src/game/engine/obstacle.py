@@ -4,9 +4,9 @@ import pygame  # type: ignore
 import os
 
 
-class Player:
+class Obstacle:
     """
-    Player class allows for movement of player character and rendering
+    Obstacle class
 
     Parameters
     ----------
@@ -24,32 +24,11 @@ class Player:
 
     def __init__(self, position: Tuple[int, int, int, int], image_path: str):
         self.position = position
-        self.controls = {pygame.K_RIGHT:"right", pygame.K_SPACE:"jump"}
-        self.image= pygame.image.load(os.path.join('assets\game','whiteSquare.png'))
+        self.image= pygame.image.load(os.path.join('assets\game','redSquare.png'))
         self.rect=self.image.get_rect()
         # TODO: create Asset for Player
         # self.image = pygame.image.load(image_path)
 
-    def is_collided_with(self, sprite):
-        return self.rect.colliderect(sprite.rect)
-
-    def jump(self):
-        """
-        Makes the player jump into the air
-
-        TODO: gravity and physics
-        """
-        x, y, width, height = self.position
-        self.position = (x, y - 10, width, height)
-        print(f"player position {self.position=}")
-
-    def right(self):
-        """
-        Moves the Player to the Right by a constant factor
-        """
-        x, y, width, height = self.position
-        self.position = (x + 10, y, width, height)
-        print(f"player position {self.position=}")
 
     def draw(self, screen):
         """
