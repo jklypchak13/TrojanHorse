@@ -3,6 +3,8 @@ import pygame
 # Relative Imports
 from game.menu.main_menu import main_menu
 
+# load image assets
+main_menu_bkground = pygame.image.load(r".\assets\menu\main_menu_background.png")
 
 if __name__ == "__main__":
     # Initialize pygame and the main clock
@@ -16,5 +18,8 @@ if __name__ == "__main__":
     pygame.display.set_icon(window_icon)
 
     # Start the main menu
-    main_menu(window, main_clock)
+    main_menu(window, main_clock, main_menu_bkground)
+    
+    # Clean up
+    pygame.quit()
     
