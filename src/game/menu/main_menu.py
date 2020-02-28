@@ -14,41 +14,43 @@ def main_menu(window, main_clock, background):
     # Set variables
     title = txt.menu_title.render("HORSE", 1, cval.black)
     running = True
-    
+
     while running:
-        window.fill(cval.black)    # Default to fill window with black
-        window.blit(background, (0,0))  # Overlay background image
+        window.fill(cval.black)  # Default to fill window with black
+        window.blit(background, (0, 0))  # Overlay background image
 
         # Window height and width
         win_width, win_height = window.get_size()
-        
+
         # Place Title in top center
-        loc_x = win_width/2 - title.get_width()/2
-        loc_y = win_height/3 - title.get_height()/2
+        loc_x = win_width / 2 - title.get_width() / 2
+        loc_y = win_height / 3 - title.get_height() / 2
         window.blit(title, (loc_x, loc_y))
-     
+
         # Create and position play button
         btn_width = 90
         btn_height = 50
-        loc_x = win_width/4 - btn_width/2
-        loc_y = win_height*2/3 - btn_height/2
+        loc_x = win_width / 4 - btn_width / 2
+        loc_y = win_height * 2 / 3 - btn_height / 2
         play_btn = Button(cval.white, loc_x, loc_y, btn_width, btn_height, "Play")
-        
+
         # Create and position options button
-        loc_x = win_width*3/4 - btn_width/2
-        loc_y = win_height*2/3 - btn_height/2
-        team_menu_btn = Button(cval.white, loc_x, loc_y, btn_width, btn_height, "Credits")
-    
+        loc_x = win_width * 3 / 4 - btn_width / 2
+        loc_y = win_height * 2 / 3 - btn_height / 2
+        team_menu_btn = Button(
+            cval.white, loc_x, loc_y, btn_width, btn_height, "Credits"
+        )
+
         # Display menu buttons
         play_btn.draw(window)
         team_menu_btn.draw(window)
-        
+
         hacked_screen_btn = Button(cval.white, 20, 20, btn_width, btn_height, "Hacked")
         hacked_screen_btn.draw(window)
-    
+
         # Get mouse position
         mx, my = pygame.mouse.get_pos()
-        
+
         # Check for key press or mouse click event
         clicked = False
         for event in pygame.event.get():
@@ -60,7 +62,7 @@ def main_menu(window, main_clock, background):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     clicked = True
-     
+
         # React to mouse click
         if clicked:
             # Check for click location
