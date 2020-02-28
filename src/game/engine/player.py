@@ -2,7 +2,7 @@ from typing import Tuple, Final
 
 import pygame  # type: ignore
 import os
-
+import pathlib
 
 class Player:
     """
@@ -21,8 +21,10 @@ class Player:
     image: pygame.image
 
     def __init__(self, position, image_path: str):
+
+        PATH_TO_DIR = pathlib.Path(__file__).parent.parent.parent.absolute()
         self.position = position
-        self.image= pygame.transform.scale(pygame.image.load(os.path.join('assets\game','whiteSquare.png')),(position.width,position.height))
+        self.image= pygame.transform.scale(pygame.image.load(f"{PATH_TO_DIR}{os.sep}assets{os.sep}game{os.sep}whiteSquare.png"),(position.width,position.height))
         self.controls = {pygame.K_RIGHT:"right", pygame.K_SPACE:"jump"}
         # TODO: create Asset for Player
         # self.image = pygame.image.load(image_path)
