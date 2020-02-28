@@ -22,10 +22,9 @@ class Obstacle:
     position: Tuple[int, int, int, int]
     image: pygame.image
 
-    def __init__(self, position: Tuple[int, int, int, int], image_path: str):
+    def __init__(self, position, image_path: str):
         self.position = position
-        self.image= pygame.image.load(os.path.join('assets\game','redSquare.png'))
-        self.rect=self.image.get_rect()
+        self.image= pygame.transform.scale(pygame.image.load(os.path.join('assets\game','redSquare.png')),(position.width,position.height))
         # TODO: create Asset for Player
         # self.image = pygame.image.load(image_path)
 

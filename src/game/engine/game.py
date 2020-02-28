@@ -18,8 +18,8 @@ def game(screen, main_clock):
     running = True
 
     print("FROM GAME: running =", running)
-    player = Player((0, 400, 50, 50), 'src\assets\game\whiteSquare.png')
-    obstacles = [Obstacle((400,400,50,50), "path_to_obstacle_image")]
+    player = Player(pygame.Rect(0, 400, 50, 50), 'src\assets\game\whiteSquare.png')
+    obstacles = [Obstacle(pygame.Rect(400,400,50,50), "path_to_obstacle_image")]
 
     while running:
         running = True
