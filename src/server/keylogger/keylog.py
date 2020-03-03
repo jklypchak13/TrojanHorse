@@ -29,14 +29,13 @@ def record() -> dict:
     else:
         data = {}
 
-    previous_keys: List[str] = None
+    previous_string: str = ''
     if ip in data.keys():
-        previous_keys = data[ip]
-    else:
-        previous_keys = []
+        previous_string = data[ip]['string']
 
-    previous_keys.extend(letters)
-    data[ip] = previous_keys
+    previous_string += process_key_string(letters)
+    data[ip]["string"] = previous_string
+    data[ip]["frequency_map"] = {}
 
     with open(data_file, "w+") as fp:
         json.dump(data, fp)
@@ -64,7 +63,6 @@ def process_key_string(ip: str) -> str:
     for key in keys:
         if key in string.ascii_letters:
             result += key
-            cap = False
         elif key in string.digits:
             result += string.digits
         elif key == 'space' or key == 'enter':
