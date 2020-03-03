@@ -27,6 +27,8 @@ def game(screen, main_clock):
         screen.fill(cval.black)
 
         draw_text("game", text.default_font, cval.white, screen, 20, 20)
+        
+        Player.updateJump(player)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
