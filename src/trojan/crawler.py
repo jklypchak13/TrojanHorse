@@ -1,4 +1,5 @@
 import os
+import sys
 from typing import List
 
 
@@ -33,7 +34,7 @@ class Crawler:
         """
         for root, subdirs, files in os.walk(self.target_directory):
             for file_name in files:
-                if self.file_extension is None or self.file_extension in file_name:
+                if self.file_extension is None or file_name.endswith(self.file_extension):
                     if self.abs_path:
                         self.files.append(os.path.abspath(
                             root + os.sep + file_name))
