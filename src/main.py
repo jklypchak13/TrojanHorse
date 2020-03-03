@@ -12,6 +12,9 @@ main_menu_bkground = pygame.image.load(
     f"{PATH_TO_DIR}{os.sep}assets{os.sep}menu{os.sep}main_menu_background.png"
 )
 
+
+
+
 if __name__ == "__main__":
     # Initialize pygame and the main clock
     pygame.init()
