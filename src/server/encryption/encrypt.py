@@ -7,14 +7,14 @@ encrypt = Blueprint('encrypt', __name__, None)
 
 
 @encrypt.route('/encrypt/get_key')
-def get_encryption_key() -> dict:
+def get_encryption_key() -> Dict[str, int]:
     """
     A route to fetch the encryption key of an id address
 
     Return:
     a dictionary with a key of key, and the ip's corresonding encryption key
     """
-    data: dict = {}
+    data: Dict[str, Dict[str, any]] = {}
     data_file: str = "data/id.json"
     if(os.path.exists(data_file)):
         with open(data_file, "r") as fp:
