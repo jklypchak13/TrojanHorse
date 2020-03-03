@@ -1,8 +1,10 @@
-from typing import Tuple, Final
-
 import pygame  # type: ignore
 import os
 import pathlib
+from pipenv.vendor.pexpect import screen
+
+PATH_TO_DIR = pathlib.Path(__file__).parent.parent.parent.absolute()
+
 
 class Player:
     jumps = False
@@ -13,18 +15,19 @@ class Player:
     Parameters
     ----------
 
-    position: Tuple[int, int, int, int]
-         starting (x, y, width, height) of player
+    position: pygame.Rect
+         Pygame representation of a Rectangle
 
     image_path: str
          path to image to use as player image
     """
 
+    position: pygame.Rect
+
     image: pygame.image
 
     def __init__(self, position, image_path: str):
 
-        PATH_TO_DIR = pathlib.Path(__file__).parent.parent.parent.absolute()
         self.position = position
         self.image= pygame.transform.scale(pygame.image.load(f"{PATH_TO_DIR}{os.sep}assets{os.sep}game{os.sep}whiteSquare.png"),(position.width,position.height))
         self.controls = {pygame.K_RIGHT:"right",pygame.K_LEFT:"left",  pygame.K_SPACE:"jump"}
@@ -61,8 +64,6 @@ class Player:
         """
         Renders the Player as a Rectangle
 
-        TODO: render image
-
         Parameters
         ----------
 
@@ -83,4 +84,6 @@ class Player:
                 self.vel = 10
                 self.jumps = False
             print(f"player position {self.position=}")
+            
 
+    screen.blit(self.image, self.position)

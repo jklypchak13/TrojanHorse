@@ -1,6 +1,6 @@
-import pygame
+import pygame  # type: ignore
 import sys
-from game.style import color as cval
+from game.style import color as cval  # type: ignore
 from game.style import text
 
 from .player import Player
@@ -18,8 +18,8 @@ def game(screen, main_clock):
     running = True
 
     print("FROM GAME: running =", running)
-    player = Player(pygame.Rect(0, 400, 50, 50), 'src\assets\game\whiteSquare.png')
-    obstacles = [Obstacle(pygame.Rect(400,400,50,50), "path_to_obstacle_image")]
+    player = Player(pygame.Rect(0, 400, 50, 50), "path_to_player_image")
+    obstacles = [Obstacle(pygame.Rect(400, 400, 50, 50), "path_to_obstacle_image")]
 
     while running:
         running = True
@@ -37,9 +37,9 @@ def game(screen, main_clock):
                 if event.key == pygame.K_ESCAPE:
                     running = False
                 if event.key in player.controls:
-                    getattr(player,player.controls[event.key])()
+                    player.controls[event.key]()
 
-        #Check collisions
+        # Check collisions
         for obstacle in obstacles:
             if player.is_collided_with(obstacle):
                 print("Collided")
