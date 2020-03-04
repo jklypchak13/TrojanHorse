@@ -9,6 +9,7 @@ autopep8 = "*"
 [packages]
 pygame = "*"
 pynput = "*"
+pyaescrypt = "*"
 
 [requires]
 python_version = "3.8"
