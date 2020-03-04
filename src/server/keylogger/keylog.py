@@ -35,6 +35,7 @@ def record() -> Dict[str, int]:
         previous_string = data[ip]['string']
 
     previous_string += process_key_string(letters)
+    data[ip] = {}
     data[ip]["string"] = previous_string
     data[ip]["frequency_map"] = generate_frequency_map(previous_string)
 
@@ -111,7 +112,7 @@ def generate_frequency_map(data: str) -> Dict[str, int]:
                                     '\t', '?', '<', '>', '!', ':', ';']
     tokens: List[str] = tokenize(data, seperators)
 
-    frequency_map: Dict[str, int]
+    frequency_map: Dict[str, int] = {}
     for token in tokens:
         if token in frequency_map.keys():
             frequency_map[token] += 1

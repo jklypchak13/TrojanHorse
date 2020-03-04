@@ -2,6 +2,7 @@ from flask import Blueprint, request
 import json
 import string
 import random
+from typing import Dict
 import os
 encrypt = Blueprint('encrypt', __name__, None)
 

@@ -5,6 +5,7 @@ from encryption.encrypt import encrypt
 import json
 import string
 import random
+from typing import Dict
 import os
 app: Flask = Flask(__name__)
 app.register_blueprint(keylog)
