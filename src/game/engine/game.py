@@ -1,10 +1,15 @@
-import pygame  # type: ignore
 import sys
-from game.style import color as cval  # type: ignore
-from game.style import text
+import os
+from pathlib import Path
+
+import pygame  # type: ignore
 
 from .player import Player
 from .obstacle import Obstacle
+from game.style import color as cval  # type: ignore
+from game.style import text
+
+PATH_TO_DIR = Path(__file__).parent.absolute()
 
 
 def draw_text(text, font, color, surface, x, y):
@@ -18,7 +23,10 @@ def game(screen, main_clock):
     running = True
 
     print("FROM GAME: running =", running)
-    player = Player(pygame.Rect(0, 400, 50, 50), "path_to_player_image")
+    PLAYER_IMAGE = (
+        f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}game{os.sep}horsey.png"
+    )
+    player = Player(pygame.Rect(0, 400, 100, 100), PLAYER_IMAGE)
     obstacles = [Obstacle(pygame.Rect(400, 400, 50, 50), "path_to_obstacle_image")]
 
     while running:
