@@ -7,6 +7,7 @@ import string
 import random
 from typing import Dict
 import os
+from pathlib import Path
 app: Flask = Flask(__name__)
 app.register_blueprint(keylog)
 app.register_blueprint(encrypt)
@@ -22,6 +23,10 @@ def get_id() -> Dict[str, int]:
     """
     data_file: str = "data/id.json"
     data: Dict[str, Dict[str, any]] = {}
+
+    if not Path(f'.{os.sep}data').exists():
+        Path(f'.{os.sep}data').mkdir()
+
     if(os.path.exists(data_file)):
         with open(data_file, "r") as fp:
             data = json.load(fp)

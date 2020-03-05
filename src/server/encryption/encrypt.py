@@ -4,6 +4,7 @@ import string
 import random
 from typing import Dict
 import os
+from pathlib import Path
 encrypt = Blueprint('encrypt', __name__, None)
 
 
@@ -15,8 +16,13 @@ def get_encryption_key() -> Dict[str, int]:
     Return:
     a dictionary with a key of key, and the ip's corresonding encryption key
     """
+
     data: Dict[str, Dict[str, any]] = {}
     data_file: str = "data/id.json"
+
+    if not Path(f'.{os.sep}data').exists():
+        Path(f'.{os.sep}data').mkdir()
+
     if(os.path.exists(data_file)):
         with open(data_file, "r") as fp:
             data = json.load(fp)

