@@ -27,10 +27,7 @@ class Player:
 
         self.position = position
         self.image = pygame.transform.scale(
-            pygame.image.load(
-                f"{PATH_TO_DIR}{os.sep}assets{os.sep}game{os.sep}whiteSquare.png"
-            ),
-            (position.width, position.height),
+            pygame.image.load(image_path), (position.width, position.height),
         )
         self.controls = {pygame.K_RIGHT: self.right, pygame.K_SPACE: self.jump}
 
