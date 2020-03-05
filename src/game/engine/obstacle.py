@@ -33,7 +33,7 @@ class Obstacle:
             (position.width, position.height),
         )
 
-    def draw(self, screen):
+    def draw(self, screen, offset):
         """
         Renders the Player as a Rectangle
 
@@ -43,4 +43,5 @@ class Obstacle:
         screen: Any
              The screen to draw the player onto
         """
-        screen.blit(self.image, self.position)
+        draw_position=self.position.move(offset[0],offset[1])
+        screen.blit(self.image, draw_position)
