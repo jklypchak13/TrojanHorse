@@ -5,6 +5,7 @@ from game.menu.main_menu import main_menu
 
 # load image assets
 main_menu_bkground = pygame.image.load(r".\assets\menu\main_menu_background.png")
+#img_twitter = pygame.image.load(r".\assets\menu\twitter_icon.png")
 
 if __name__ == "__main__":
     # Initialize pygame and the main clock
