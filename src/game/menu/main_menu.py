@@ -85,8 +85,9 @@ def main_menu(window, main_clock, background):
             if hacked_screen_btn.mouse_over((mx, my)):
                 hacked_screen(window, main_clock)
             if twitter_btn.mouse_over((mx, my)):
-                api = Twitter(window, main_clock)
-                
+                twit = Twitter()
+                twit.open_login_window()
+                twit.login_screen(window, main_clock)
 
         pygame.display.update()
         main_clock.tick(60)

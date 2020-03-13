@@ -16,6 +16,7 @@ class InputText:
         self.text = text
         self.txt_surface = FONT.render(text, True, self.color)
         self.active = False
+        self.submitted = ""
 
     def handle_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
@@ -30,7 +31,8 @@ class InputText:
         if event.type == pg.KEYDOWN:
             if self.active:
                 if event.key == pg.K_RETURN:
-                    print(self.text)
+                    self.submitted = self.text
+                    print(self.submitted)
                     self.text = ''
                 elif event.key == pg.K_BACKSPACE:
                     self.text = self.text[:-1]
