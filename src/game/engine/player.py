@@ -84,6 +84,6 @@ class Player:
                 self.vel = 10
                 self.jumps = False
             print(f"player position {self.position=}")
-            
 
-    screen.blit(self.image, self.position)
+
+    ##screen.blit(self.image, self.position)
