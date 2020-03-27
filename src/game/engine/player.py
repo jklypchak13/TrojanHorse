@@ -29,10 +29,17 @@ class Player:
     def __init__(self, position, image_path: str):
 
         self.position = position
+<<<<<<< HEAD
         self.image= pygame.transform.scale(pygame.image.load(f"{PATH_TO_DIR}{os.sep}assets{os.sep}game{os.sep}whiteSquare.png"),(position.width,position.height))
         self.controls = {pygame.K_RIGHT:"right",pygame.K_LEFT:"left",  pygame.K_SPACE:"jump"}
         # TODO: create Asset for Player
         # self.image = pygame.image.load(image_path)
+=======
+        self.image = pygame.transform.scale(
+            pygame.image.load(image_path), (position.width, position.height),
+        )
+        self.controls = {pygame.K_RIGHT: self.right, pygame.K_SPACE: self.jump}
+>>>>>>> f5a9a6c55bf2d61a8276c55f9ded615b344a9e43
 
     def is_collided_with(self, sprite):
         return self.position.colliderect(sprite.position)
