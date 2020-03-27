@@ -35,7 +35,7 @@ class GameObject:
     """
 
     position: pygame.Rect
-    image: pygame.Image
+    image: pygame.Surface
 
     def __init__(self, position: pygame.Rect, image_path: str):
         self.position = position
