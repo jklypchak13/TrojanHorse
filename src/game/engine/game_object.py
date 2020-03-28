@@ -15,6 +15,8 @@ Handle movement
       GameObjects immediate subclasses are static objects, reference PhyiscsObject
       for moving objects
 """
+from __future__ import annotations
+
 from typing import Tuple
 
 import pygame  # type: ignore
@@ -74,4 +76,4 @@ class GameObject:
         bool
               True if they have, false otherwise
         """
-        return self.position.collderect(game_object.position)
+        return self.position.colliderect(game_object.position)
