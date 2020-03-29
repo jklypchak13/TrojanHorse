@@ -66,3 +66,12 @@ class Player:
         """
         draw_position=self.position.move(offset[0],offset[1])
         screen.blit(self.image, draw_position)
+
+    def kill(self):
+        """
+        Kill this player. Remove a life/health or end the game.
+        """
+        #TODO end the game/remove life
+        #TODO remove self from all game_objects lists
+        #TODOLATER death animation?
+        pass
