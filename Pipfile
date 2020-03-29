@@ -5,10 +5,14 @@ verify_ssl = true
 
 [dev-packages]
 autopep8 = "*"
+pycodestyle = "*"
 
 [packages]
 pygame = "*"
 pynput = "*"
+flask = "*"
+requests = "*"
+pyaescrypt = "*"
 
 [requires]
 python_version = "3.8"

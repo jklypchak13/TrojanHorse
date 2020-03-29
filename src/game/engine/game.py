@@ -1,10 +1,15 @@
-import pygame  # type: ignore
 import sys
-from game.style import color as cval  # type: ignore
-from game.style import text
+import os
+from pathlib import Path
+
+import pygame  # type: ignore
 
 from .player import Player
 from .obstacle import Obstacle
+from game.style import color as cval  # type: ignore
+from game.style import text
+
+PATH_TO_DIR = Path(__file__).parent.absolute()
 
 
 def draw_text(text, font, color, surface, x, y):
@@ -18,9 +23,12 @@ def game(screen, main_clock):
     running = True
 
     print("FROM GAME: running =", running)
-    player = Player(pygame.Rect(0, 400, 50, 50), "path_to_player_image")
+    PLAYER_IMAGE = (
+        f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}game{os.sep}horsey.png"
+    )
+    player = Player(pygame.Rect(0, 400, 100, 100), PLAYER_IMAGE)
     obstacles = [Obstacle(pygame.Rect(400, 400, 50, 50), "path_to_obstacle_image")]
-
+    screen_offset = [0,0]
     while running:
         running = True
 
@@ -41,10 +49,19 @@ def game(screen, main_clock):
         for obstacle in obstacles:
             if player.is_collided_with(obstacle):
                 print("Collided")
-        player.draw(screen)
+
+        #Recalculate screen_offset
+        w, h = pygame.display.get_surface().get_size()
+        if player.position.x+screen_offset[0]<20:
+            screen_offset[0]=20-player.position.x
+        if player.position.right+screen_offset[0]>w-20:
+            screen_offset[0]=w-20-player.position.right
+        #Redraw screen
+        player.draw(screen,screen_offset)
         for obstacle in obstacles:
-            obstacle.draw(screen)
+            obstacle.draw(screen,screen_offset)
         pygame.display.update()
+
         main_clock.tick(60)
 
     print("FROM GAME: running =", running)

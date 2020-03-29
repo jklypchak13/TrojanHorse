@@ -24,15 +24,12 @@ class Player:
     image: pygame.image
 
     def __init__(self, position, image_path: str):
-
+        self.horizontal_vel=50
         self.position = position
         self.image = pygame.transform.scale(
-            pygame.image.load(
-                f"{PATH_TO_DIR}{os.sep}assets{os.sep}game{os.sep}whiteSquare.png"
-            ),
-            (position.width, position.height),
+            pygame.image.load(image_path), (position.width, position.height),
         )
-        self.controls = {pygame.K_RIGHT: self.right, pygame.K_SPACE: self.jump}
+        self.controls = {pygame.K_RIGHT: self.right, pygame.K_SPACE: self.jump, pygame.K_LEFT: self.left}
 
     def is_collided_with(self, sprite):
         return self.position.colliderect(sprite.position)
@@ -49,9 +46,15 @@ class Player:
         """
         Moves the Player to the Right by a constant factor
         """
-        self.position = self.position.move(10, 0)
+        self.position = self.position.move(self.horizontal_vel, 0)
 
-    def draw(self, screen):
+    def left(self):
+        """
+        Moves the Player to the Right by a constant factor
+        """
+        self.position = self.position.move(-1*self.horizontal_vel, 0)
+
+    def draw(self, screen, offset):
         """
         Renders the Player as a Rectangle
 
@@ -61,4 +64,14 @@ class Player:
         screen: Any
              The screen to draw the player onto
         """
-        screen.blit(self.image, self.position)
+        draw_position=self.position.move(offset[0],offset[1])
+        screen.blit(self.image, draw_position)
+
+    def kill(self):
+        """
+        Kill this player. Remove a life/health or end the game.
+        """
+        #TODO end the game/remove life
+        #TODO remove self from all game_objects lists
+        #TODOLATER death animation?
+        pass
