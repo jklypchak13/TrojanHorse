@@ -2,10 +2,7 @@ import pygame  # type: ignore
 
 
 class DrawManager:
-    # player = null
-    # game_objects = null
     screen_offset = [0,0]
-    # screen=null
 
     def __init__(self, screen, player, game_objects):
         self.player = player
