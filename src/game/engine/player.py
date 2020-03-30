@@ -29,17 +29,14 @@ class Player:
     def __init__(self, position, image_path: str):
         self.horizontal_vel=50
         self.position = position
-<<<<<<< HEAD
         self.image_path= pygame.transform.scale(pygame.image.load(f"{PATH_TO_DIR}{os.sep}assets{os.sep}game{os.sep}whiteSquare.png"),(position.width,position.height))
         self.controls = {pygame.K_RIGHT:"right",pygame.K_LEFT:"left",  pygame.K_SPACE:"jump"}
         # TODO: create Asset for Player
         # self.image = pygame.image.load(image_path)
-=======
         self.image = pygame.transform.scale(
             pygame.image.load(image_path), (position.width, position.height),
         )
         self.controls = {pygame.K_RIGHT: self.right, pygame.K_SPACE: self.jump, pygame.K_LEFT: self.left}
->>>>>>> dd84a16d73aa8ed77d76d6b76d6c96efa8a3bcce
 
     def is_collided_with(self, sprite):
         return self.position.colliderect(sprite.position)
@@ -54,26 +51,13 @@ class Player:
         """
         Moves the Player to the Right by a constant factor
         """
-<<<<<<< HEAD
-        x, y, width, height = self.position
-        self.position = self.position.move(Player.vel*5,0)
-        print(f"player position {self.position=}")
-=======
         self.position = self.position.move(self.horizontal_vel, 0)
->>>>>>> dd84a16d73aa8ed77d76d6b76d6c96efa8a3bcce
 
     def left(self):
         """
         Moves the Player to the Right by a constant factor
         """
-<<<<<<< HEAD
-        x, y, width, height = self.position
-        self.position = self.position.move(-Player.vel*5,0)
-        print(f"player position {self.position=}")
-
-=======
         self.position = self.position.move(-1*self.horizontal_vel, 0)
->>>>>>> dd84a16d73aa8ed77d76d6b76d6c96efa8a3bcce
 
     def draw(self, screen, offset):
         """
@@ -85,7 +69,6 @@ class Player:
         screen: Any
              The screen to draw the player onto
         """
-<<<<<<< HEAD
         screen.blit(self.image,self.position)
     
     def updateJump(self):
@@ -103,7 +86,6 @@ class Player:
 
 
     ##screen.blit(self.image, self.position)
-=======
         draw_position=self.position.move(offset[0],offset[1])
         screen.blit(self.image, draw_position)
 
@@ -115,4 +97,3 @@ class Player:
         #TODO remove self from all game_objects lists
         #TODOLATER death animation?
         pass
->>>>>>> dd84a16d73aa8ed77d76d6b76d6c96efa8a3bcce
