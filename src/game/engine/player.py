@@ -2,6 +2,7 @@ import pygame  # type: ignore
 import os
 import pathlib
 from pipenv.vendor.pexpect import screen
+from .physics_object import PhysicsObject
 
 PATH_TO_DIR = pathlib.Path(__file__).parent.parent.parent.absolute()
 
