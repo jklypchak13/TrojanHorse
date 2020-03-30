@@ -28,7 +28,7 @@ def game(screen, main_clock):
     )
     player = Player(pygame.Rect(0, 400, 100, 100), PLAYER_IMAGE)
     obstacles = [Obstacle(pygame.Rect(400, 400, 50, 50), "path_to_obstacle_image")]
-
+    screen_offset = [0,0]
     while running:
         running = True
 
@@ -51,10 +51,19 @@ def game(screen, main_clock):
         for obstacle in obstacles:
             if player.is_collided_with(obstacle):
                 print("Collided")
-        player.draw(screen)
+
+        #Recalculate screen_offset
+        w, h = pygame.display.get_surface().get_size()
+        if player.position.x+screen_offset[0]<20:
+            screen_offset[0]=20-player.position.x
+        if player.position.right+screen_offset[0]>w-20:
+            screen_offset[0]=w-20-player.position.right
+        #Redraw screen
+        player.draw(screen,screen_offset)
         for obstacle in obstacles:
-            obstacle.draw(screen)
+            obstacle.draw(screen,screen_offset)
         pygame.display.update()
+
         main_clock.tick(60)
 
     print("FROM GAME: running =", running)
