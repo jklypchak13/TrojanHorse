@@ -4,9 +4,10 @@ import pygame  # type: ignore
 class DrawManager:
     screen_offset = [0,0]
 
-    def __init__(self, screen, player, game_objects):
+    def __init__(self, screen, player, static_objects, dynamic_objects):
         self.player = player
-        self.game_objects = game_objects
+        self.static_objects = static_objects
+        self.dynamic_objects = dynamic_objects
         self.screen=screen
 
     def adjust_screen(self):
@@ -18,7 +19,9 @@ class DrawManager:
 
 
     def draw_all(self):
-        for o in self.game_objects:
+        for o in self.static_objects:
+            o.draw(self.screen, self.screen_offset)
+        for o in self.dyanmic_objects:
             o.draw(self.screen, self.screen_offset)
         self.player.draw(self.screen, self.screen_offset)
         pygame.display.update()

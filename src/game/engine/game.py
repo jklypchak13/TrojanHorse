@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 import pygame  # type: ignore
-
+import load_level from game.levels
 from .player import Player
 from .draw_manager import DrawManager
 from .obstacle import Obstacle
@@ -27,9 +27,10 @@ def game(screen, main_clock):
     PLAYER_IMAGE = (
         f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}game{os.sep}horsey.png"
     )
-    player = Player(pygame.Rect(0, 400, 100, 100), PLAYER_IMAGE)
-    obstacles = [Obstacle(pygame.Rect(400, 400, 50, 50), "path_to_obstacle_image")]
-    draw_manager= DrawManager(screen, player, obstacles)
+    player_start_pos, static_objects, physics_objects = load_level(1)
+    player = Player(pygame.Rect(player_start_pos[0], player_start_pos[1], 100, 100), PLAYER_IMAGE)
+    draw_manager= DrawManager(screen, player, static_objects,physics_objects)
+    collision_manager = CollisionManager(player, static_objects, physics_objects)
     while running:
         running = True
 
@@ -47,9 +48,8 @@ def game(screen, main_clock):
                     player.controls[event.key]()
 
         # Check collisions
-        for obstacle in obstacles:
-            if player.is_collided_with(obstacle):
-                print("Collided")
+
+        collision_manager.check_all_collisions()
 
 
         draw_manager.adjust_screen()

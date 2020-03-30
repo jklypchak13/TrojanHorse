@@ -18,16 +18,16 @@ class CollisionManager:
     def phys_collides_static(self):
         for s in self.static_objects:
             for d in self.dyanmic_objects:
-                if s.contains(d):
+                if s in d:
                     s.handle_collision(d)
 
     def player_collides_static(self):
         for s in self.static_objects:
-            if s.contains(self.player):
+            if s in self.player:
                 s.handle_collision(self.player)
 
     def player_collides_phs(self):
         #Check dyanmic objects against Player
         for d in self.dyanmic_objects:
-            if d.contains(self.player):
+            if d in self.player:
                 d.handle_collision(player)
