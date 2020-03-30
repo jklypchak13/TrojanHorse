@@ -30,7 +30,7 @@ class Player(PhysicsObject):
     def __init__(self, position, image_path: str):
         self.horizontal_vel=50
         self.position = position
-        self.image_path= pygame.transform.scale(pygame.image.load(f"{PATH_TO_DIR}{os.sep}assets{os.sep}game{os.sep}whiteSquare.png"),(position.width,position.height))
+        self.image_path= pygame.transform.scale(pygame.image.load(f"{PATH_TO_DIR}{os.sep}assets{os.sep}game{os.sep}horsey.png"),(position.width,position.height))
         self.controls = {pygame.K_RIGHT:"right",pygame.K_LEFT:"left",  pygame.K_SPACE:"jump"}
         # TODO: create Asset for Player
         # self.image = pygame.image.load(image_path)
@@ -84,11 +84,17 @@ class Player(PhysicsObject):
                 self.vel = 10
                 self.jumps = False
             print(f"player position {self.position=}")
-
-
-    ##screen.blit(self.image, self.position)
-        draw_position=self.position.move(offset[0],offset[1])
-        screen.blit(self.image, draw_position)
+            
+        def draw(self, screen, offset):
+            """
+            Renders the Player as a Rectangle
+            Parameters
+            ----------
+            screen: Any
+             The screen to draw the player onto
+            """
+            draw_position=self.position.move(offset[0],offset[1])
+            screen.blit(self.image, draw_position)
 
     def kill(self):
         """
