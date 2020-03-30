@@ -1,16 +1,18 @@
-from requests_oauthlib import OAuth1Session
 import webbrowser
-import pygame
 import tweepy
+import os
+import pygame
+from requests_oauthlib import OAuth1Session
 
 # Relative imports
 from game.style import color as cval
 from game.style import text as txt
 from common.input_text import InputText
 
+
 class Twitter:
-    consumer_key = 'R9vBsMnElXVXS3S0Y0uNf5Sra'
-    consumer_secret = 'GN7WkLnALrtcK5yfBwNyo44uTnMQynmYBgNPyob9mnq5bz2S40'
+    consumer_key = 'z9Ah5xIOOSQSfewfuJ7UhaFrb'
+    consumer_secret = 'RRl8XuG4QShkLK4Za1FZWcHfOFs8IU08E8ddJtgpHIPCGPYf6f'
     user_key = ''
     user_secret = ''
     twitter_auth_url = ""    
@@ -18,14 +20,21 @@ class Twitter:
     session = None
     api = None
     
+    def __init__(self, PATH_TO_ROOT):
+        self.bkg_img = pygame.image.load(
+            f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}twitter_background.jpg"
+        )
+    
     def login_screen(self, window, main_clock):
+        """Pygame screen to allow the user to input the verification key
+        obtained from the twitter login page"""
         running = True
         invalid_input = False
     
         # Window height and width
         win_width, win_height = window.get_size()
     
-        msg = txt.hacked_title.render("Enter verification code", 1, cval.white)
+        msg = txt.fancy_title.render("Enter verification code", 1, cval.white)
 
         box_width = 140
         box_height = 32
@@ -38,7 +47,8 @@ class Twitter:
         
         print("FROM TWITTER - LOGIN: running =", running)
         while running:        
-            window.fill(cval.black)
+            window.fill(cval.maya_blue)  # Default to fill window with black
+            window.blit(self.bkg_img, (0, 0))  # Overlay background image
             
             # Place msg
             loc_x = win_width/2 - msg.get_width()/2
@@ -76,19 +86,28 @@ class Twitter:
         print("FROM TWITTER - LOGIN: running =", running)
         return login_status        
 
+
     def thank_user_window(self, window, main_clock):
+        """Pygame screen to thank the user for helping us advertise the game"""
         running = True
+        y_offset = 50 # vertical pixel offset
     
         # Window height and width
         win_width, win_height = window.get_size()
     
         title = txt.fancy_title.render(
-                "Thank you for helping to spread our game!",
+                "Thank you!",
                 1,
                 cval.white
         )
         
-        sub_title = txt.default_font.render(
+        subtitle = [
+                txt.fancy_sub_title.render("By sharing our game on Twitter,", 1, cval.white),
+                txt.fancy_sub_title.render("you've greatly helped us reach a", 1, cval.white),
+                txt.fancy_sub_title.render("wider audience with our game.", 1, cval.white)
+        ]
+        
+        nav_text = txt.default_font.render(
                 'Press "esc" to return to the main menu.',
                 1,
                 cval.white
@@ -96,16 +115,25 @@ class Twitter:
         
         print("FROM TWITTER - THANK: running =", running)
         while running:        
-            window.fill(cval.black)
+            window.fill(cval.maya_blue)  # Default to fill window with black
+            window.blit(self.bkg_img, (0, 0))  # Overlay background image
             
-            # Place msg
+            # Place title
             loc_x = win_width/2 - title.get_width()/2
             loc_y = win_height/3 - title.get_height()/2
             window.blit(title, (loc_x, loc_y))
             
-            loc_x = win_width/2 - sub_title.get_width()/2
-            loc_y = win_height/3 - sub_title.get_height()/2
-            window.blit(sub_title, (loc_x, loc_y))
+            # Place subtitle
+            loc_y = win_height/3
+            for s in subtitle:
+                loc_x = win_width/2 - s.get_width()/2
+                loc_y += y_offset
+                window.blit(s, (loc_x, loc_y))
+            
+            # place navigation text
+            loc_x = win_width/2 - nav_text.get_width()/2
+            loc_y += y_offset
+            window.blit(nav_text, (loc_x, loc_y))
             
             # Event handling
             for event in pygame.event.get():
@@ -120,7 +148,10 @@ class Twitter:
             
         print("FROM TWITTER - THANK: running =", running)
 
+
     def open_login_window(self):
+        """Open local browser window to have user login, and obtain
+        verification key to grant access permissions to api"""
         request_token = OAuth1Session(client_key=self.consumer_key, client_secret=self.consumer_secret)
         url = 'https://api.twitter.com/oauth/request_token'
         data = request_token.get(url)
@@ -134,8 +165,7 @@ class Twitter:
         twitter_auth_url = "https://api.twitter.com/oauth/authenticate?oauth_token={0}".format(self.user_key)
         webbrowser.open(twitter_auth_url)
     
-    # STEP 2 place twitter_auth_url in the console to have the user log in & authorize the application
-    # STEP 3 pass verifier as string to this function
+
     def init_api(self, verifier):
         self.session = OAuth1Session(client_key=self.consumer_key,
                                     client_secret=self.consumer_secret,
@@ -145,17 +175,22 @@ class Twitter:
         data = {"oauth_verifier": verifier}
         access_token_data = self.session.post(url, data=data)
         
+        # Simple response checking/reporting
         if (access_token_data.text == "Request token missing"
             or access_token_data.text == "Error processing your OAuth request: Invalid oauth_verifier parameter"
             or access_token_data.text == "This feature is temporarily unavailable"):
             # invalid verifier or malformed data
             return None
         print(access_token_data.text)
+        
+        # parse response data
         access_token_list = str.split(access_token_data.text, '&')
         access_token_key = str.split(access_token_list[0], '=')
         access_token_secret = str.split(access_token_list[1], '=')
         self.user_key = access_token_key[1]
         self.user_secret = access_token_secret[1]
+        
+        # initialize tweepy api using user data and session information
         self.session = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
         self.session.set_access_token(self.user_key, self.user_secret)
         self.api = tweepy.API(self.session)
@@ -165,20 +200,19 @@ class Twitter:
     def post_image(self, img_path:str, text = ""):
         self.api.update_with_media(img_path, text)
     
+    
     def tweet_advertisement(self):
         self.api.update_status("I just got this game about a horse, and it's great! Check it out below. {download link here}")
         pass
     
+    
     def get_user_data(self, access_token_list):
+        """Print user/account information about the currently logged in user."""
         access_token_key = str.split(access_token_list[0], '=')
         access_token_secret = str.split(access_token_list[1], '=')
-        access_token_id = str.split(access_token_list[2], '=')
-        access_token_name = str.split(access_token_list[3], '=')
         
         key = access_token_key[1]
         secret = access_token_secret[1]
-        name = access_token_name[1]
-        id = access_token_id[1]
         self.session = OAuth1Session(client_key=self.consumer_key,
                                    client_secret=self.consumer_secret,
                                    resource_owner_key=key,
@@ -186,6 +220,5 @@ class Twitter:
         url_user = 'https://api.twitter.com/1.1/account/verify_credentials.json'
         params = {"include_email": 'true'}
         user_data = self.session.get(url_user, params=params)
-        print(name, id)
         print(user_data.json())
         return user_data.json()

@@ -1,15 +1,11 @@
 # Package imports
 import sys
 import os
-import pathlib
-
 import pygame
 
 # Relative imports
 from game.style import color as cval
 from game.style import text as txt
-
-PATH_TO_DIR = pathlib.Path(__file__).parent.absolute()
 
 
 def draw_text(text, font, color, surface, x, y):
@@ -19,16 +15,22 @@ def draw_text(text, font, color, surface, x, y):
     surface.blit(textobj, textrect)
 
 
-def hacked_screen(window, main_clock):
+def hacked_screen(window, main_clock, PATH_TO_ROOT):
     hacked_icon = pygame.image.load(
-        f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}menu{os.sep}hacked_icon.png"
+        f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}hacked_icon.png"
     )
+    
+    bkg_img = pygame.image.load(
+        f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}hacked_background.jpg"
+    )
+    
     msg = txt.hacked_title.render("You've been hacked!", 1, cval.white)
 
     running = True
     print("FROM HACKED_SCREEN: running =", running)
     while running:
         window.fill(cval.black)
+        window.blit(bkg_img, (0, 0))
 
         # Window height and width
         win_width, win_height = window.get_size()
