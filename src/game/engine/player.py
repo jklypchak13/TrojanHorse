@@ -6,7 +6,7 @@ from pipenv.vendor.pexpect import screen
 PATH_TO_DIR = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-class Player:
+class Player(PhysicsObject):
     jumps = False
     vel = 10
     """
