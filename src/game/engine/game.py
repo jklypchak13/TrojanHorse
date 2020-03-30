@@ -19,7 +19,7 @@ def draw_text(text, font, color, surface, x, y):
     surface.blit(textobj, textrect)
 
 
-def game(screen, main_clock):
+def game(screen, main_clock, PATH_TO_ROOT):
     running = True
 
     print("FROM GAME: running =", running)
