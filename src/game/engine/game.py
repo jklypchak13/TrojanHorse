@@ -3,9 +3,10 @@ import os
 from pathlib import Path
 
 import pygame  # type: ignore
-import load_level from game.levels
+from game.levels import load_level
 from .player import Player
 from .draw_manager import DrawManager
+from .collision_manager import CollisionManager
 from .obstacle import Obstacle
 from game.style import color as cval  # type: ignore
 from game.style import text
@@ -28,9 +29,11 @@ def game(screen, main_clock, PATH_TO_ROOT):
         f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}game{os.sep}horsey.png"
     )
     player_start_pos, static_objects, physics_objects = load_level(1)
-    player = Player(pygame.Rect(player_start_pos[0], player_start_pos[1], 100, 100), PLAYER_IMAGE)
-    draw_manager= DrawManager(screen, player, static_objects,physics_objects)
-    collision_manager = CollisionManager(player, static_objects, physics_objects)
+    player = Player(pygame.Rect(
+        player_start_pos[0], player_start_pos[1], 100, 100), PLAYER_IMAGE)
+    draw_manager = DrawManager(screen, player, static_objects, physics_objects)
+    collision_manager = CollisionManager(
+        player, static_objects, physics_objects)
     while running:
         running = True
 
@@ -50,7 +53,6 @@ def game(screen, main_clock, PATH_TO_ROOT):
         # Check collisions
 
         collision_manager.check_all_collisions()
-
 
         draw_manager.adjust_screen()
         draw_manager.draw_all()

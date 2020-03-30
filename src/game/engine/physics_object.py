@@ -1,22 +1,23 @@
 from .game_object import GameObject
+import pygame
 
 
 class PhysicsObject(GameObject):
 
-        """
-        PhysicsObject
+    """
+    PhysicsObject
 
-        Parameters
-        ----------
+    Parameters
+    ----------
 
-        x_vel: float
-            initial x velocity
+    x_vel: float
+    initial x velocity
 
-        y_vel: float
-            initial y velocity
-        """
-        x_vel: float = 0.0
-        y_vel: float = 0.0
+    y_vel: float
+        initial y velocity
+    """
+    x_vel: float = 0.0
+    y_vel: float = 0.0
 
     def __init__(self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float):
         super().__init__(position, image_path)
