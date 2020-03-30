@@ -65,6 +65,16 @@ def game(screen, main_clock):
         pygame.display.update()
 
         main_clock.tick(60)
+        if player.life == 0:
+            running = False
+            print("game over")
+            screen.fill((0, 0, 0))
+            font = pygame.font.Font('Papyrus.ttf', 30)
+            text_surface = font.render("Game Over", True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.center = (250, 250)
+            screen.blit(text_surface, text_rect)
+            pygame.display.update()
 
     print("FROM GAME: running =", running)
 

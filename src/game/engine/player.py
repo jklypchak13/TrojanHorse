@@ -10,6 +10,7 @@ PATH_TO_DIR = pathlib.Path(__file__).parent.parent.parent.absolute()
 class Player(PhysicsObject):
     jumps = False
     vel = 10
+    life = 1
     """
     Player class allows for movement of player character and rendering
 
@@ -100,7 +101,9 @@ class Player(PhysicsObject):
         """
         Kill this player. Remove a life/health or end the game.
         """
+        self.life = 0
+        
         #TODO end the game/remove life
         #TODO remove self from all game_objects lists
         #TODOLATER death animation?
-        pass
+        
