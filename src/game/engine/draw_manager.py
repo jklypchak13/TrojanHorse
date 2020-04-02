@@ -21,7 +21,7 @@ class DrawManager:
     def draw_all(self):
         for obj in self.static_objects:
             obj.draw(self.screen, self.screen_offset)
-        for obj in self.dyanmic_objects:
+        for obj in self.dynamic_objects:
             obj.draw(self.screen, self.screen_offset)
         self.player.draw(self.screen, self.screen_offset)
         pygame.display.update()

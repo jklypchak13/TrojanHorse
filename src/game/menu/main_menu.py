@@ -10,7 +10,7 @@ from game.menu.credits_screen import credits_screen
 from common.button import Button
 from game.style import color as cval
 from game.style import text as txt
-from trojan.twitter import Twitter
+# from trojan.twitter import Twitter
 
 
 def main_menu(window, main_clock, PATH_TO_ROOT):
