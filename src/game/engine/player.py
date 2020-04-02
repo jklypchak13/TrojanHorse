@@ -4,6 +4,7 @@ import pathlib
 from pipenv.vendor.pexpect import screen
 from .physics_object import PhysicsObject
 
+from .physics_object import PhysicsObject
 PATH_TO_DIR = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
@@ -29,7 +30,7 @@ class Player(PhysicsObject):
     image: pygame.image
 
     def __init__(self, position, image_path: str):
-        self.horizontal_vel=50
+        self.horizontal_vel = 50
         self.position = position
         self.image_path= pygame.transform.scale(pygame.image.load(f"{PATH_TO_DIR}{os.sep}assets{os.sep}game{os.sep}horsey.png"),(position.width,position.height))
         self.controls = {pygame.K_RIGHT:"right",pygame.K_LEFT:"left",  pygame.K_SPACE:"jump"}
@@ -38,7 +39,8 @@ class Player(PhysicsObject):
         self.image = pygame.transform.scale(
             pygame.image.load(image_path), (position.width, position.height),
         )
-        self.controls = {pygame.K_RIGHT: self.right, pygame.K_SPACE: self.jump, pygame.K_LEFT: self.left}
+        self.controls = {pygame.K_RIGHT: self.right,
+                         pygame.K_SPACE: self.jump, pygame.K_LEFT: self.left}
 
     def is_collided_with(self, sprite):
         return self.position.colliderect(sprite.position)
@@ -73,7 +75,7 @@ class Player(PhysicsObject):
         """
         screen.blit(self.image,self.position)
     
-    def updateJump(self):
+    def update(self):
         x, y, width, height = self.position
         if self.jumps:
             if self.vel >= -10:
