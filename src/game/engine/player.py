@@ -82,7 +82,6 @@ class Player(PhysicsObject):
                 dy =  -(self.vel * abs(self.vel))/2
                 self.position = self.position.move(0, dy)
                 self.vel -= 1
-                self.controls[pygame.K_SPACE]
             else: 
                 self.vel = 10
                 self.jumps = False
