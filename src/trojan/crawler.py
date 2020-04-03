@@ -8,18 +8,20 @@ class Crawler:
     A Crawler designed to traverse a file tree and print the files contained in it.
     """
 
-    def __init__(self, target: str, extension: str = None, abs_path: bool = False):
-        """
-        Creates a new Crawler for the given target, of files with the given extension.
+    def __init__(self, target: str, extension_white_list: List[str] = [], abs_path: bool = False):
+        """construct the File Crawler
 
         Arguments:
-            target: the target directory.
-            extension: the desired file extension (defaults to any extension)
-            abs_path: whether you want files to be the absolute or relative path, from the target
+            target {str} -- the target directory for encryptioin
+
+        Keyword Arguments:
+            extension_white_list {List[str]} -- the list of file extensions to encrypt (default: {[]})
+            abs_path {bool} -- whether or not to return the absolute path (default: {False})
         """
+
         self.target_directory: str = target
         self.files: List[str] = []
-        self.file_extension: str = extension
+        self.file_extensions: str = extension_white_list
         self.abs_path: bool = abs_path
 
     def find_root(self) -> bool:
@@ -34,12 +36,13 @@ class Crawler:
         """
         for root, subdirs, files in os.walk(self.target_directory):
             for file_name in files:
-                if self.file_extension is None or file_name.endswith(self.file_extension):
-                    if self.abs_path:
-                        self.files.append(os.path.abspath(
-                            root + os.sep + file_name))
-                    else:
-                        self.files.append(root + os.sep + file_name)
+                for file_extension in self.file_extensions:
+                    if file_name.endswith(file_extension):
+                        if self.abs_path:
+                            self.files.append(os.path.abspath(
+                                root + os.sep + file_name))
+                        else:
+                            self.files.append(root + os.sep + file_name)
 
     def get_files(self) -> List[str]:
         """
