@@ -4,9 +4,11 @@ from pathlib import Path
 
 import pygame  # type: ignore
 from game.levels import load_level
+from .game_state import GameState
 from .player import Player
 from .draw_manager import DrawManager
 from .collision_manager import CollisionManager
+from .input_manager import InputManager
 from .obstacle import Obstacle
 from game.style import color as cval  # type: ignore
 from game.style import text
@@ -30,10 +32,13 @@ def game(screen, main_clock, PATH_TO_ROOT):
     )
     player_start_pos, static_objects, physics_objects = load_level(1)
     player = Player(pygame.Rect(
-        player_start_pos[0], player_start_pos[1], 100, 100), PLAYER_IMAGE)
-    draw_manager = DrawManager(screen, player, static_objects, physics_objects)
-    collision_manager = CollisionManager(
-        player, static_objects, physics_objects)
+        player_start_pos[0], player_start_pos[1], 100, 100), PLAYER_IMAGE, 0.0, 0.0)
+    GameState.static_objects = static_objects
+    GameState.physics_objects = physics_objects
+    GameState.player = player
+    draw_manager = DrawManager(screen)
+    collision_manager = CollisionManager()
+    input_manager = InputManager()
     while running:
         running = True
 
@@ -44,13 +49,9 @@ def game(screen, main_clock, PATH_TO_ROOT):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
-                if event.key in player.controls:
-                    player.controls[event.key]()
 
         # Check collisions
+        input_manager.handle_input()
 
         collision_manager.check_all_collisions()
 
