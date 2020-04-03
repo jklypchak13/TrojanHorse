@@ -21,10 +21,6 @@ class Obstacle:
          path to image to use as player image
     """
 
-    position: pygame.Rect
-
-    image: pygame.image
-
     def __init__(self, position: pygame.Rect, image_path: str):
 
         self.position = position

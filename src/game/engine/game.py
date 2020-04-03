@@ -15,6 +15,7 @@ from game.style import text
 
 PATH_TO_DIR = Path(__file__).parent.absolute()
 
+Gofont = pygame.font.SysFont("Arial",70)
 
 def draw_text(text, font, color, surface, x, y):
     textobj = font.render(text, 1, color)
@@ -50,13 +51,19 @@ def game(screen, main_clock, PATH_TO_ROOT):
                 pygame.quit()
                 sys.exit()
 
-        # Check collisions
-        input_manager.handle_input()
-
-        collision_manager.check_all_collisions()
-
         draw_manager.adjust_screen()
-        draw_manager.draw_all()
+
+        if not player.life == 0:
+            input_manager.handle_input()
+            # Check collisions
+            collision_manager.check_all_collisions()
+            draw_manager.draw_all()
+        else:
+            cbackground = pygame.image.load(f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}menu{os.sep}GameOver.jpg")
+            screen.fill(cval.black)
+            screen.blit(cbackground, (0, 0))  # Overlay background image
+            draw_text("Game Over", GOfont, cval.white, screen, 250, 250)
+            pygame.display.update()
 
         main_clock.tick(60)
 
