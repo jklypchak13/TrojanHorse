@@ -62,7 +62,7 @@ def game(screen, main_clock, PATH_TO_ROOT):
        
         if player.life == 0:
             cbackground = pygame.image.load(
-        f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}menu{os.sep}credits_background.jpg")
+        f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}menu{os.sep}GameOver.jpg")
             screen.fill(cval.black)
             screen.blit(cbackground, (0, 0))  # Overlay background image
 

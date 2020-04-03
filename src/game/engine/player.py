@@ -11,7 +11,7 @@ PATH_TO_DIR = pathlib.Path(__file__).parent.parent.parent.absolute()
 class Player(PhysicsObject):
     jumps = False
     vel = 10
-    life = 1
+    life = 0
     """
     Player class allows for movement of player character and rendering
 
