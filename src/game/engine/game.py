@@ -10,6 +10,7 @@ from .collision_manager import CollisionManager
 from .obstacle import Obstacle
 from game.style import color as cval  # type: ignore
 from game.style import text
+from game.menu.credits_screen import credits_screen
 
 PATH_TO_DIR = Path(__file__).parent.absolute()
 
@@ -41,7 +42,8 @@ def game(screen, main_clock, PATH_TO_ROOT):
 
         draw_text("game", text.default_font, cval.white, screen, 20, 20)
         
-        player.update()
+        if not player.life == 0:
+            player.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -54,14 +56,20 @@ def game(screen, main_clock, PATH_TO_ROOT):
 
         # Check collisions
         #collision_manager.check_all_collisions()
-
-        draw_manager.adjust_screen()
-        draw_manager.draw_all()
+        if not player.life == 0:
+            draw_manager.adjust_screen()
+            draw_manager.draw_all()
        
         if player.life == 0:
+            cbackground = pygame.image.load(
+        f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}menu{os.sep}credits_background.jpg")
             screen.fill(cval.black)
+            screen.blit(cbackground, (0, 0))  # Overlay background image
+
             GOfont = pygame.font.SysFont("Arial", 70)
-            draw_text("Game Over", GOfont, cval.white, screen, 200, 200)
+            draw_text("Game Over", GOfont, cval.white, screen, 250, 250)
+            draw_manager.adjust_screen()
+            pygame.display.update()
 
 
         main_clock.tick(60)

@@ -11,7 +11,7 @@ PATH_TO_DIR = pathlib.Path(__file__).parent.parent.parent.absolute()
 class Player(PhysicsObject):
     jumps = False
     vel = 10
-    life = 0
+    life = 1
     """
     Player class allows for movement of player character and rendering
 
@@ -62,6 +62,7 @@ class Player(PhysicsObject):
         Moves the Player to the Right by a constant factor
         """
         self.position = self.position.move(-1*self.horizontal_vel, 0)
+        self.life = 0
 
     def draw(self, screen, offset):
         """
