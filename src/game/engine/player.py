@@ -62,7 +62,6 @@ class Player(PhysicsObject):
         Moves the Player to the Right by a constant factor
         """
         self.position = self.position.move(-1*self.horizontal_vel, 0)
-        self.life = 0
 
     def draw(self, screen, offset):
         """
