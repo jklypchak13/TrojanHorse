@@ -15,7 +15,8 @@ from game.style import text
 
 PATH_TO_DIR = Path(__file__).parent.absolute()
 
-Gofont = pygame.font.SysFont("Arial",70)
+Gofont = pygame.font.SysFont("Arial", 70)
+
 
 def draw_text(text, font, color, surface, x, y):
     textobj = font.render(text, 1, color)
@@ -32,8 +33,12 @@ def game(screen, main_clock, PATH_TO_ROOT):
         f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}game{os.sep}horsey.png"
     )
     player_start_pos, static_objects, physics_objects = load_level(1)
-    player = Player(pygame.Rect(
-        player_start_pos[0], player_start_pos[1], 100, 100), PLAYER_IMAGE, 0.0, 0.0)
+    player = Player(
+        pygame.Rect(player_start_pos[0], player_start_pos[1], 100, 100),
+        PLAYER_IMAGE,
+        0.0,
+        0.0,
+    )
     GameState.static_objects = static_objects
     GameState.physics_objects = physics_objects
     GameState.player = player
@@ -52,14 +57,18 @@ def game(screen, main_clock, PATH_TO_ROOT):
                 sys.exit()
 
         draw_manager.adjust_screen()
-
         if not player.life == 0:
             input_manager.handle_input()
+            GameState.player.update()
+            for phys_obj in GameState.physics_objects:
+                phys_obj.update()
             # Check collisions
             collision_manager.check_all_collisions()
             draw_manager.draw_all()
         else:
-            cbackground = pygame.image.load(f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}menu{os.sep}GameOver.jpg")
+            cbackground = pygame.image.load(
+                f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}menu{os.sep}GameOver.jpg"
+            )
             screen.fill(cval.black)
             screen.blit(cbackground, (0, 0))  # Overlay background image
             draw_text("Game Over", GOfont, cval.white, screen, 250, 250)
