@@ -17,7 +17,9 @@ class PhysicsObject(GameObject):
         initial y velocity
     """
 
-    def __init__(self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float):
+    def __init__(
+        self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float
+    ):
         super().__init__(position, image_path)
         self.x_vel = x_vel
         self.y_vel = y_vel
@@ -27,8 +29,8 @@ class PhysicsObject(GameObject):
         """
         Update the position of this object based on its velocity values.
         """
-        self.position.x += x_vel
-        self.position.y += y_vel + self.gravity
+        self.position.x += self.x_vel
+        self.position.y += self.y_vel + self.gravity
 
     def handle_collision(self, otherPhysicsObject):
         """

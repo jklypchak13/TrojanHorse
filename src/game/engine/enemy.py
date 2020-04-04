@@ -15,7 +15,9 @@ class Enemy(PhysicsObject):
         enemy walking speed
     """
 
-    def __init__(self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float):
+    def __init__(
+        self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float
+    ):
         super().__init__(position, image_path, x_vel, y_vel)
         self.walk_speed = 1
 
@@ -24,7 +26,7 @@ class Enemy(PhysicsObject):
         Set this enemy's horizontal velocity based on their walking speed.
         Call PhysicsObject update method.
         """
-        x_vel = walk_speed
+        x_vel = self.walk_speed
         super().update()
 
     def handle_player_collision(self, player: Player) -> None:
@@ -49,6 +51,6 @@ class Enemy(PhysicsObject):
         """
         Kill this enemy
         """
-        #todo remove self from all game_objects lists
-        #TODOLATER death animation?
+        # todo remove self from all game_objects lists
+        # TODOLATER death animation?
         pass
