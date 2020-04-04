@@ -1,12 +1,8 @@
 import pygame  # type: ignore
+from .game_state import GameState
 
 
 class CollisionManager:
-
-    def __init__(self, player, static_objects, dynamic_objects):
-        self.player = player
-        self.dynamic_objects = dynamic_objects
-        self.static_objects = static_objects
 
     def check_all_collisions(self):
         # Check dynamic and player against static
@@ -15,18 +11,17 @@ class CollisionManager:
         self.player_collides_phys()
 
     def phys_collides_static(self):
-        for s in self.static_objects:
-            for d in self.dynamic_objects:
-                if s in d:
-                    s.handle_collision(d)
+        for s in GameState.static_objects:
+            for p in GameState.physics_objects:
+                if s in p:
+                    s.handle_collision(p)
 
     def player_collides_static(self):
-        for s in self.static_objects:
-            if s in self.player:
-                s.handle_collision(self.player)
+        for s in GameState.static_objects:
+            if s in GameState.player:
+                s.handle_collision(GameState.player)
 
-    def player_collides_phs(self):
+    def player_collides_phys(self):
         # Check dyanmic objects against Player
-        for d in self.dyanmic_objects:
-            if d in self.player:
-                d.handle_collision(player)
+        for p in GameState.physics_objects:
+                p.handle_collision(GameState.player)

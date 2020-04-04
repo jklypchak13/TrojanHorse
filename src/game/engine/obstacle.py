@@ -1,6 +1,8 @@
 import pygame  # type: ignore
 import os
 import pathlib
+from .physics_object import PhysicsObject
+from .player import Player
 
 PATH_TO_DIR = pathlib.Path(__file__).parent.parent.parent.absolute()
 
@@ -18,10 +20,6 @@ class Obstacle:
     image_path: str
          path to image to use as player image
     """
-
-    position: pygame.Rect
-
-    image: pygame.image
 
     def __init__(self, position: pygame.Rect, image_path: str):
 
@@ -45,3 +43,13 @@ class Obstacle:
         """
         draw_position=self.position.move(offset[0],offset[1])
         screen.blit(self.image, draw_position)
+
+    def handle_collision(self, player:Player):
+        """
+        Does nothing.
+        """
+        pass
+
+    def handle_collision(self, physics_object:PhysicsObject):
+        #TODO collide with phys object
+        pass

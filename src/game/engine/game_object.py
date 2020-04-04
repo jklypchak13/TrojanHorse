@@ -36,9 +36,6 @@ class GameObject:
           Path to image
     """
 
-    position: pygame.Rect
-    image: pygame.Surface
-
     def __init__(self, position: pygame.Rect, image_path: str):
         self.position = position
         self.image = pygame.transform.scale(
