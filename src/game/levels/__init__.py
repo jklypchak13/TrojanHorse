@@ -14,7 +14,7 @@ from pathlib import Path
 PATH_TO_LEVELS: str = pathlib.Path(__file__).parent.absolute()
 PLATFORM_IMAGE_URL: str = Path(
     __file__
-).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "redSquare.png"
+).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "GRASS_TILE.png"
 ENEMY_IMAGE_URL: str = Path(
     __file__
 ).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "redSquare.png"
@@ -59,7 +59,7 @@ def load_level(
         height: int = static_object[3]
 
         current_rect: Rect = Rect(x, y, width, height)
-        static_objects.append(Platform(current_rect, PLATFORM_IMAGE_URL))
+        static_objects.append(Platform(current_rect, PLATFORM_IMAGE_URL, True))
 
     # Read Physics Objects/Enemies
     for physics_object in level_data["physics_objects"]:
