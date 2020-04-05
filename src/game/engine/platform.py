@@ -3,6 +3,7 @@ from enum import Enum, auto
 
 from .game_object import GameObject
 from .physics_object import PhysicsObject
+from .enemy import Enemy
 from .player import Player
 
 
@@ -47,7 +48,10 @@ class Platform(GameObject):
                 obj.position.left = self.position.right
             else:
                 obj.position.right = self.position.left
-            obj.x_vel = 0
+            if isinstance(obj, Enemy):
+                obj.flip_direction()
+            else:
+                obj.x_vel = 0
         else:
             if obj.position.top - obj.y_vel < self.position.top:
                 obj.position.bottom = self.position.top

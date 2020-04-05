@@ -19,15 +19,7 @@ class Enemy(PhysicsObject):
         self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float
     ):
         super().__init__(position, image_path, x_vel, y_vel)
-        self.walk_speed = 1
-
-    def update_x(self):
-        """
-        Set this enemy's horizontal velocity based on their walking speed.
-        Call PhysicsObject update_x method.
-        """
-        x_vel = self.walk_speed
-        super().update_x()
+        self.x_vel = -1
 
     def handle_player_collision(self, player: Player) -> None:
         """
@@ -45,7 +37,7 @@ class Enemy(PhysicsObject):
         """
         Change the enemy's walking direction from right to left or vice versa.
         """
-        self.walk_speed *= -1
+        self.x_vel *= -1
 
     def kill(self) -> None:
         """
