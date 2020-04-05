@@ -1,21 +1,20 @@
 import pygame  # type: ignore
 from .game_state import GameState
 
+
 class InputManager:
-
-
     def handle_input(self):
         """
         Handle user keyboard input.
         """
-        #reset horizontal velocity so that releasing a button stops walking
+        # reset horizontal velocity so that releasing a button stops walking
         GameState.player.x_vel = 0
 
-        #player controls
+        # player controls
         pressedKeys = pygame.key.get_pressed()
-        if (pressedKeys[pygame.K_RIGHT]):
+        if pressedKeys[pygame.K_RIGHT]:
             self.right()
-        if (pressedKeys[pygame.K_LEFT]):
+        if pressedKeys[pygame.K_LEFT]:
             self.left()
         if (self.newKeyDown(pygame.K_SPACE, pressedKeys)):
             self.jump()
@@ -23,9 +22,11 @@ class InputManager:
         self.previous_pressed_keys = pressedKeys
 
     def right(self):
-        GameState.player.x_vel=1.0
+        GameState.player.x_vel = 1.0
+
     def left(self):
-        GameState.player.x_vel=-1.0
+        GameState.player.x_vel = -1.0
+
     def jump(self):
         GameState.player.y_vel=-10.0
 
