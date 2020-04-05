@@ -24,7 +24,7 @@ class Enemy(PhysicsObject):
         Set this enemy's horizontal velocity based on their walking speed.
         Call PhysicsObject update method.
         """
-        x_vel = walk_speed
+        x_vel = self.walk_speed
         super().update()
 
     def handle_player_collision(self, player: Player) -> None:

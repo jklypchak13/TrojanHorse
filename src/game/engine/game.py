@@ -57,6 +57,7 @@ def game(screen, main_clock, PATH_TO_ROOT):
             input_manager.handle_input()
             # Check collisions
             collision_manager.check_all_collisions()
+            physics_tick()
             draw_manager.draw_all()
         else:
             cbackground = pygame.image.load(f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}menu{os.sep}GameOver.jpg")
@@ -70,3 +71,8 @@ def game(screen, main_clock, PATH_TO_ROOT):
     print("FROM GAME: running =", running)
 
     return
+
+def physics_tick():
+    for physObj in GameState.physics_objects:
+        physObj.update()
+    GameState.player.update()

@@ -21,14 +21,15 @@ class PhysicsObject(GameObject):
         super().__init__(position, image_path)
         self.x_vel = x_vel
         self.y_vel = y_vel
-        self.gravity = 1.0
+        self.gravity = 0.5
 
     def update(self) -> None:
         """
         Update the position of this object based on its velocity values.
         """
-        self.position.x += x_vel
-        self.position.y += y_vel + self.gravity
+        self.position.x += self.x_vel
+        self.position.y += self.y_vel
+        self.y_vel += self.gravity
 
     def handle_collision(self, otherPhysicsObject):
         """
