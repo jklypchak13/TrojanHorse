@@ -37,8 +37,8 @@ class Player(PhysicsObject):
 
     def jump(self):
         """
-        Moves player up by setting y_vel to -12.0
+        Moves player up by setting y_vel to -15.0
         """
         if not self.jumping:
             self.jumping = True
-            self.y_vel = -13.0
+            self.y_vel = -15.0
