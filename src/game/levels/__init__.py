@@ -1,6 +1,6 @@
 from typing import Tuple, List, Dict, Any
 from game.engine.enemy import Enemy
-from game.engine.obstacle import Obstacle
+from game.engine.platform import Platform
 from game.engine.game_object import GameObject
 from game.engine.physics_object import PhysicsObject
 
@@ -59,7 +59,7 @@ def load_level(
         height: int = static_object[3]
 
         current_rect: Rect = Rect(x, y, width, height)
-        static_objects.append(Obstacle(current_rect, PLATFORM_IMAGE_URL))
+        static_objects.append(Platform(current_rect, PLATFORM_IMAGE_URL))
 
     # Read Physics Objects/Enemies
     for physics_object in level_data["physics_objects"]:
