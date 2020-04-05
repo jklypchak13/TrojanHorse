@@ -23,7 +23,7 @@ class PhysicsObject(GameObject):
         super().__init__(position, image_path)
         self.x_vel = x_vel
         self.y_vel = y_vel
-        self.gravity = 2
+        self.gravity = 1
 
     def update_x(self) -> None:
         """

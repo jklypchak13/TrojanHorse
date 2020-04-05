@@ -16,19 +16,19 @@ class InputManager:
             self.right()
         if pressedKeys[pygame.K_LEFT]:
             self.left()
-        if (self.newKeyDown(pygame.K_SPACE, pressedKeys)):
+        if self.newKeyDown(pygame.K_SPACE, pressedKeys):
             self.jump()
 
         self.previous_pressed_keys = pressedKeys
 
     def right(self):
-        GameState.player.x_vel = 1.0
+        GameState.player.x_vel = 4.0
 
     def left(self):
-        GameState.player.x_vel = -1.0
+        GameState.player.x_vel = -4.0
 
     def jump(self):
-        GameState.player.y_vel=-10.0
+        GameState.player.y_vel = -12.0
 
     def newKeyDown(self, key, currentPressedKeys) -> bool:
         return (currentPressedKeys[key]) and (not self.previous_pressed_keys[key])
