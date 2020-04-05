@@ -7,9 +7,12 @@ class Player(PhysicsObject):
     Player class is the physics object that represents the player.
     """
 
-    def __init__(self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float):
+    def __init__(
+        self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float
+    ):
         super().__init__(position, image_path, x_vel, y_vel)
         self.life = 1
+        self.jumping: bool = False
 
     def kill(self):
         """
@@ -19,3 +22,23 @@ class Player(PhysicsObject):
         # TODO remove self from all game_objects lists
         # TODOLATER death animation?
         self.life = 0
+
+    def left(self):
+        """
+        Moves player left by setting x_vel to -4.0
+        """
+        self.x_vel = -4.0
+
+    def right(self):
+        """
+        Moves player right by setting x_vel to 4.0
+        """
+        self.x_vel = 4.0
+
+    def jump(self):
+        """
+        Moves player up by setting y_vel to -12.0
+        """
+        if not self.jumping:
+            self.jumping = True
+            self.y_vel = -13.0
