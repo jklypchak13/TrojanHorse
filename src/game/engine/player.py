@@ -18,10 +18,8 @@ class Player(PhysicsObject):
         """
         Kill this player. Remove a life/health or end the game.
         """
-        # TODO end the game/remove life
-        # TODO remove self from all game_objects lists
-        # TODOLATER death animation?
-        self.life = 0
+        # TODO death animation?
+        self.life -= 1
 
     def left(self):
         """

@@ -22,4 +22,5 @@ class CollisionManager:
     def player_collides_phys(self):
         # Check dyanmic objects against Player
         for p in GameState.physics_objects:
-            p.handle_collision(GameState.player)
+            if p in GameState.player:
+                p.handle_player_collision(GameState.player)
