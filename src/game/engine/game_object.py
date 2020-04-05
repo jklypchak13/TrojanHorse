@@ -55,7 +55,8 @@ class GameObject:
         screen_offset
               Offset of the screen
         """
-        screen.blit(self.image, self.position)
+        draw_position=self.position.move(screen_offset[0],screen_offset[1])
+        screen.blit(self.image, draw_position)
 
     def __contains__(self, game_object: GameObject) -> bool:
         """
