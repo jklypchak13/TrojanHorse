@@ -51,6 +51,9 @@ class Platform(GameObject):
         else:
             if obj.position.top - obj.y_vel < self.position.top:
                 obj.position.bottom = self.position.top
+                # Ground the player, to prevent infinite jumping
+                if isinstance(obj, Player):
+                    obj.jumping = False
             else:
                 obj.position.top = self.position.bottom
             obj.y_vel = 0
