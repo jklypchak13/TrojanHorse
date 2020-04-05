@@ -13,9 +13,9 @@ from pathlib import Path
 # Intialize Useful Constants
 PATH_TO_LEVELS: str = pathlib.Path(__file__).parent.absolute()
 PLATFORM_IMAGE_URL: str = Path(
-    __file__).parent.parent.parent.parent.absolute().__str__() + os.path.sep+"assets"+os.path.sep+"game"+os.path.sep+"redSquare.png"
+    __file__).parent.parent.parent.parent.absolute().__str__() + os.path.sep+"assets"+os.path.sep+"game"+os.path.sep+"GRASS_TILE.png"
 ENEMY_IMAGE_URL: str = Path(
-    __file__).parent.parent.parent.absolute().__str__() + os.path.sep+"assets"+os.path.sep+"game"+os.path.sep+"redSquare.png"
+    __file__).parent.parent.parent.absolute().__str__() + os.path.sep+"assets"+os.path.sep+"game"+os.path.sep+"greek_soldier.png"
 ENEMY_WIDTH: int = 30
 ENEMY_HEIGHT: int = 30
 

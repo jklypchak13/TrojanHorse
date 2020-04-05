@@ -31,13 +31,16 @@ def game(screen, main_clock, PATH_TO_ROOT):
     PLAYER_IMAGE = (
         f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}game{os.sep}horsey.png"
     )
+    BACKGROUND_IMAGE_PATH = (
+        f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}game{os.sep}sky.png"
+    )
     player_start_pos, static_objects, physics_objects = load_level(1)
     player = Player(pygame.Rect(
         player_start_pos[0], player_start_pos[1], 100, 100), PLAYER_IMAGE, 0.0, 0.0)
     GameState.static_objects = static_objects
     GameState.physics_objects = physics_objects
     GameState.player = player
-    draw_manager = DrawManager(screen)
+    draw_manager = DrawManager(screen, BACKGROUND_IMAGE_PATH)
     collision_manager = CollisionManager()
     input_manager = InputManager()
     while running:
