@@ -10,6 +10,7 @@ from .draw_manager import DrawManager
 from .collision_manager import CollisionManager
 from .input_manager import InputManager
 from .obstacle import Obstacle
+from .platform import Axis
 from game.style import color as cval  # type: ignore
 from game.style import text
 
@@ -34,7 +35,7 @@ def game(screen, main_clock, PATH_TO_ROOT):
     )
     player_start_pos, static_objects, physics_objects = load_level(1)
     player = Player(
-        pygame.Rect(player_start_pos[0], player_start_pos[1], 100, 100),
+        pygame.Rect(player_start_pos[0], player_start_pos[1], 50, 50),
         PLAYER_IMAGE,
         0.0,
         0.0,
@@ -59,9 +60,16 @@ def game(screen, main_clock, PATH_TO_ROOT):
         draw_manager.adjust_screen()
         if not player.life == 0:
             input_manager.handle_input()
-            GameState.player.update()
+            GameState.player.update_x()
+            collision_manager.player_collides_static(Axis.XAxis)
+            GameState.player.update_y()
+            collision_manager.player_collides_static(Axis.YAxis)
+
             for phys_obj in GameState.physics_objects:
-                phys_obj.update()
+                phys_obj.update_x()
+                collision_manager.phys_collides_static(Axis.XAxis)
+                phys_obj.update_y()
+                collision_manager.phys_collides_static(Axis.XAxis)
             # Check collisions
             collision_manager.check_all_collisions()
             draw_manager.draw_all()
