@@ -21,13 +21,13 @@ class Enemy(PhysicsObject):
         super().__init__(position, image_path, x_vel, y_vel)
         self.walk_speed = 1
 
-    def update(self):
+    def update_x(self):
         """
         Set this enemy's horizontal velocity based on their walking speed.
-        Call PhysicsObject update method.
+        Call PhysicsObject update_x method.
         """
         x_vel = self.walk_speed
-        super().update()
+        super().update_x()
 
     def handle_player_collision(self, player: Player) -> None:
         """

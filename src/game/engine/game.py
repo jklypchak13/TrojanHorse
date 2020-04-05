@@ -8,6 +8,7 @@ from .game_state import GameState
 from .player import Player
 from .draw_manager import DrawManager
 from .collision_manager import CollisionManager
+from .physics_object import PhysicsObject
 from .input_manager import InputManager
 from .obstacle import Obstacle
 from .platform import Axis
@@ -33,6 +34,9 @@ def game(screen, main_clock, PATH_TO_ROOT):
     PLAYER_IMAGE = (
         f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}game{os.sep}horsey.png"
     )
+    BACKGROUND_IMAGE_PATH = (
+        f"{PATH_TO_DIR}{os.sep}..{os.sep}..{os.sep}assets{os.sep}game{os.sep}sky.png"
+    )
     player_start_pos, static_objects, physics_objects = load_level(1)
     player = Player(
         pygame.Rect(player_start_pos[0], player_start_pos[1], 50, 50),
@@ -43,7 +47,7 @@ def game(screen, main_clock, PATH_TO_ROOT):
     GameState.static_objects = static_objects
     GameState.physics_objects = physics_objects
     GameState.player = player
-    draw_manager = DrawManager(screen)
+    draw_manager = DrawManager(screen, BACKGROUND_IMAGE_PATH)
     collision_manager = CollisionManager()
     input_manager = InputManager()
     while running:
@@ -60,16 +64,7 @@ def game(screen, main_clock, PATH_TO_ROOT):
         draw_manager.adjust_screen()
         if not player.life == 0:
             input_manager.handle_input()
-            GameState.player.update_x()
-            collision_manager.player_collides_static(Axis.XAxis)
-            GameState.player.update_y()
-            collision_manager.player_collides_static(Axis.YAxis)
-
-            for phys_obj in GameState.physics_objects:
-                phys_obj.update_x()
-                collision_manager.phys_collides_static(Axis.XAxis)
-                phys_obj.update_y()
-                collision_manager.phys_collides_static(Axis.XAxis)
+            physics_tick(collision_manager)
             # Check collisions
             collision_manager.check_all_collisions()
             draw_manager.draw_all()
@@ -79,7 +74,7 @@ def game(screen, main_clock, PATH_TO_ROOT):
             )
             screen.fill(cval.black)
             screen.blit(cbackground, (0, 0))  # Overlay background image
-            draw_text("Game Over", GOfont, cval.white, screen, 250, 250)
+            draw_text("Game Over", Gofont, cval.white, screen, 250, 250)
             pygame.display.update()
 
         main_clock.tick(60)
@@ -87,3 +82,42 @@ def game(screen, main_clock, PATH_TO_ROOT):
     print("FROM GAME: running =", running)
 
     return
+
+
+def physics_tick(collision_manager: CollisionManager) -> None:
+    """
+    Perform a single tick for all physics objects
+
+    Parameters
+    ----------
+
+    collision_manager: CollisionManager
+          Handles Collisions between GameObjects
+    """
+    GameState.player.update_x()
+    collision_manager.player_collides_static(Axis.XAxis)
+    GameState.player.update_y()
+    collision_manager.player_collides_static(Axis.YAxis)
+    for phys_obj in GameState.physics_objects:
+        update_physics_obj(phys_obj, collision_manager)
+
+
+def update_physics_obj(obj: PhysicsObject, collision_manager: CollisionManager) -> None:
+    """
+    Update Physics Objects X and Y values
+
+    handling collisions with static objects
+
+    Parameters
+    ----------
+
+    obj: PhysicsObject
+      Object to update
+
+    collision_manager: CollisionManager
+      Handle collisions between objects and static objects
+    """
+    obj.update_x()
+    collision_manager.phys_collides_static(Axis.XAxis)
+    obj.update_y()
+    collision_manager.phys_collides_static(Axis.YAxis)

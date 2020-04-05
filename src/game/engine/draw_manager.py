@@ -5,8 +5,11 @@ from .game_state import GameState
 class DrawManager:
     screen_offset = [0,0]
 
-    def __init__(self, screen):
+    def __init__(self, screen, BACKGROUND_IMAGE_PATH):
         self.screen=screen
+        self.background = pygame.transform.scale(
+            pygame.image.load(BACKGROUND_IMAGE_PATH), (screen.get_width(), screen.get_height())
+        )
 
     def adjust_screen(self):
         w, h = pygame.display.get_surface().get_size()
@@ -17,6 +20,7 @@ class DrawManager:
 
 
     def draw_all(self):
+        self.screen.blit(self.background, [0,0])
         for obj in GameState.static_objects:
             obj.draw(self.screen, self.screen_offset)
         for obj in GameState.physics_objects:

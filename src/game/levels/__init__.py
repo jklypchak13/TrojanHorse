@@ -14,10 +14,10 @@ from pathlib import Path
 PATH_TO_LEVELS: str = pathlib.Path(__file__).parent.absolute()
 PLATFORM_IMAGE_URL: str = Path(
     __file__
-).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "redSquare.png"
+).parent.parent.parent.parent.absolute().__str__() + os.path.sep + "src" + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "wood_platform.png"
 ENEMY_IMAGE_URL: str = Path(
     __file__
-).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "redSquare.png"
+).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "greek_soldier.png"
 ENEMY_WIDTH: int = 30
 ENEMY_HEIGHT: int = 30
 
