@@ -70,9 +70,11 @@ class GameObject:
               Offset of the screen
         """
         if self.__animated:
-            if (time.time()-self.prev_update_time) > (1.0/self.fps):
+            if time.time() - self.prev_update_time > 1.0 / self.fps:
                 self.prev_update_time = time.time()
-                self.current_frame_index = (self.current_frame_index+1) % len(self.frames)
+                self.current_frame_index = (self.current_frame_index + 1) % len(
+                    self.frames
+                )
                 self.image = self.frames[self.current_frame_index]
 
         draw_position = self.position.move(screen_offset[0], screen_offset[1])
@@ -90,12 +92,14 @@ class GameObject:
         """
         self.__animated = True
         self.frames = []
-        self.fps=7
+        self.fps = 7
         self.prev_update_time = time.time()
         self.current_frame_index = 0
         for image_path in frame_paths:
-            frame = pygame.transform.scale(pygame.image.load(image_path).convert(),
-                (self.position.width, self.position.height))
+            frame = pygame.transform.scale(
+                pygame.image.load(image_path).convert(),
+                (self.position.width, self.position.height),
+            )
             frame.set_colorkey((0, 0, 0))
             self.frames.append(frame)
 

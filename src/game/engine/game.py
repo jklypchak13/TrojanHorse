@@ -61,10 +61,6 @@ def game(screen, main_clock, PATH_TO_ROOT):
 
         main_clock.tick(60)
 
-    print("FROM GAME: running =", running)
-
-    return
-
 
 def physics_tick(collision_manager: CollisionManager) -> None:
     """

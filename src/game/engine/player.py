@@ -1,3 +1,5 @@
+from typing import Tuple
+
 import pygame  # type: ignore
 
 from .physics_object import PhysicsObject, Direction
@@ -12,10 +14,11 @@ class Player(PhysicsObject):
         self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float,
     ):
         super().__init__(position, image_path, x_vel, y_vel)
-        self.lives = 3
+        self.lives: int = 3
+        self.start_position: Tuple[int, int] = (self.position.x, self.position.y)
         # Make horsey go right
-        self.image = pygame.transform.flip(self.image, True, False)
-        self.direction = Direction.Right
+        self.image: pygame.Surface = pygame.transform.flip(self.image, True, False)
+        self.direction: Direction = Direction.Right
         self.jumping: bool = False
         self.immunity: bool = False
         self.collision_time = 0
@@ -52,6 +55,18 @@ class Player(PhysicsObject):
             self.image.set_alpha(255)
             self.immunity = False
         super().update_x()
+
+    def update_y(self) -> None:
+        """
+        Update Vertical position
+
+        Handles player falling off the map
+        """
+        width, height = pygame.display.get_surface().get_size()
+        if self.position.y > height:
+            self.position.x, self.position.y = self.start_position
+            self.hit()
+        super().update_y()
 
     def jump(self) -> None:
         """
