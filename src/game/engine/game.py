@@ -65,7 +65,7 @@ def game(screen, main_clock, PATH_TO_ROOT):
             collision_manager.check_all_collisions()
             draw_manager.draw_all()
         else:
-            cbackground = pygame.image.load(f"{PATH_TO_ASSETS}redSquare.png")
+            cbackground = pygame.image.load(f"{PATH_TO_ASSETS}GameOver.jpg")
             screen.fill(cval.black)
             screen.blit(cbackground, (0, 0))  # Overlay background image
             draw_text("Game Over", Gofont, cval.white, screen, 250, 250)
