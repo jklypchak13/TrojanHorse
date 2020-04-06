@@ -26,8 +26,7 @@ def game():
     window = pygame.display.set_mode((800, 600), 0, 32)
     pygame.display.set_caption("HORSE")
     window_icon = pygame.image.load(
-        f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}app_icon.png"
-    )
+        f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}app_icon.png")
     pygame.display.set_icon(window_icon)
 
     # Start the main menu

@@ -13,20 +13,8 @@ class InputManager:
         # player controls
         pressedKeys = pygame.key.get_pressed()
         if pressedKeys[pygame.K_RIGHT]:
-            self.right()
+            GameState.player.right()
         if pressedKeys[pygame.K_LEFT]:
-            self.left()
+            GameState.player.left()
         if pressedKeys[pygame.K_SPACE]:
-            self.jump()
-        # for event in pygame.event.get():
-        #   if (event.type == pygame.KEYDOWN) and (event.key == pygame.K_SPACE):
-        #       self.jump()
-
-    def right(self):
-        GameState.player.x_vel = 1.0
-
-    def left(self):
-        GameState.player.x_vel = -1.0
-
-    def jump(self):
-        GameState.player.y_vel = -15.0
+            GameState.player.jump()
