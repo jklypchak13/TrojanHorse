@@ -36,9 +36,18 @@ class GameObject:
           Path to image
     """
 
-    def __init__(self, position: pygame.Rect, image_path: str):
+    def __init__(self, position: pygame.Rect, image_path: str, repeat_texture=False):
         self.position = position
-        self.image = pygame.transform.scale(
+        if repeat_texture:
+            self.image = pygame.Surface((self.position.width, self.position.height))
+            self.image.fill((255,0,0))
+            texture= pygame.image.load(image_path)
+            for x in range(0, self.image.get_width(), texture.get_width()):
+                print("Current it "+str(x))
+                for y in range(0, self.image.get_height(), texture.get_height()):
+                    self.image.blit(texture, (x,y))
+        else:
+            self.image = pygame.transform.scale(
             pygame.image.load(image_path), (self.position.width, self.position.height)
         )
 
