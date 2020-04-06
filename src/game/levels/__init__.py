@@ -17,9 +17,9 @@ PLATFORM_IMAGE_URL: str = Path(
 ).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "GRASS_TILE.png"
 ENEMY_IMAGE_URL: str = Path(
     __file__
-).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "greek_soldier.png"
+).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "greek_soldier_walk1.png"
 ENEMY_WIDTH: int = 30
-ENEMY_HEIGHT: int = 30
+ENEMY_HEIGHT: int = 50
 
 
 def load_level(

@@ -40,16 +40,17 @@ class GameObject:
         self.position = position
         if repeat_texture:
             self.image = pygame.Surface((self.position.width, self.position.height))
-            self.image.fill((255,0,0))
-            texture= pygame.image.load(image_path)
+            self.image.fill((255, 0, 0))
+            texture = pygame.image.load(image_path).convert()
             for x in range(0, self.image.get_width(), texture.get_width()):
-                print("Current it "+str(x))
                 for y in range(0, self.image.get_height(), texture.get_height()):
-                    self.image.blit(texture, (x,y))
+                    self.image.blit(texture, (x, y))
         else:
             self.image = pygame.transform.scale(
-            pygame.image.load(image_path), (self.position.width, self.position.height)
-        )
+                pygame.image.load(image_path).convert(),
+                (self.position.width, self.position.height),
+            )
+        self.image.set_colorkey((0, 0, 0))
 
     def draw(self, screen: pygame.Surface, screen_offset: Tuple[int, int]) -> None:
         """
@@ -64,7 +65,7 @@ class GameObject:
         screen_offset
               Offset of the screen
         """
-        draw_position=self.position.move(screen_offset[0],screen_offset[1])
+        draw_position = self.position.move(screen_offset[0], screen_offset[1])
         screen.blit(self.image, draw_position)
 
     def __contains__(self, game_object: GameObject) -> bool:

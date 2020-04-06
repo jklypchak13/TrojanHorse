@@ -1,5 +1,17 @@
-from .game_object import GameObject
+from enum import Enum, auto
+
 import pygame
+
+from .game_object import GameObject
+
+
+class Direction(Enum):
+    """
+    Direction the image is moving
+    """
+
+    Left = auto()
+    Right = auto()
 
 
 class PhysicsObject(GameObject):
@@ -23,6 +35,7 @@ class PhysicsObject(GameObject):
         super().__init__(position, image_path)
         self.x_vel = x_vel
         self.y_vel = y_vel
+        self.direction = Direction.Left
         self.gravity = 0.9
 
     def update_x(self) -> None:
@@ -30,6 +43,12 @@ class PhysicsObject(GameObject):
         Update the position of this object based on its velocity x values.
         """
         self.position.x += self.x_vel
+        if self.x_vel < 0 and self.direction is not Direction.Left:
+            self.image = pygame.transform.flip(self.image, True, False)
+            self.direction = Direction.Left
+        elif self.x_vel > 0 and self.direction is not Direction.Right:
+            self.image = pygame.transform.flip(self.image, True, False)
+            self.direction = Direction.Right
 
     def update_y(self) -> None:
         """
