@@ -39,8 +39,10 @@ class GameObject:
     def __init__(self, position: pygame.Rect, image_path: str):
         self.position = position
         self.image = pygame.transform.scale(
-            pygame.image.load(image_path), (self.position.width, self.position.height)
+            pygame.image.load(image_path).convert(),
+            (self.position.width, self.position.height),
         )
+        self.image.set_colorkey((0, 0, 0))
 
     def draw(self, screen: pygame.Surface, screen_offset: Tuple[int, int]) -> None:
         """
@@ -55,7 +57,7 @@ class GameObject:
         screen_offset
               Offset of the screen
         """
-        draw_position=self.position.move(screen_offset[0],screen_offset[1])
+        draw_position = self.position.move(screen_offset[0], screen_offset[1])
         screen.blit(self.image, draw_position)
 
     def __contains__(self, game_object: GameObject) -> bool:

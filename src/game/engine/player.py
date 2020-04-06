@@ -1,5 +1,6 @@
 import pygame  # type: ignore
-from .physics_object import PhysicsObject
+
+from .physics_object import PhysicsObject, Direction
 
 
 class Player(PhysicsObject):
@@ -8,32 +9,51 @@ class Player(PhysicsObject):
     """
 
     def __init__(
-        self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float
+        self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float,
     ):
         super().__init__(position, image_path, x_vel, y_vel)
-        self.life = 1
+        self.lives = 3
+        # Make horsey go right
+        self.image = pygame.transform.flip(self.image, True, False)
+        self.direction = Direction.Right
         self.jumping: bool = False
+        self.immunity: bool = False
+        self.collision_time = 0
 
-    def kill(self):
+    def hit(self) -> None:
         """
-        Kill this player. Remove a life/health or end the game.
+        Hits this player. Remove a life/health or end the game.
         """
         # TODO death animation?
-        self.life -= 1
+        self.immunity = True
+        self.collision_time = pygame.time.get_ticks()
+        self.image.set_alpha(127.5)
+        self.lives -= 1
 
-    def left(self):
+    def left(self) -> None:
         """
         Moves player left by setting x_vel to -4.0
         """
         self.x_vel = -4.0
 
-    def right(self):
+    def right(self) -> None:
         """
         Moves player right by setting x_vel to 4.0
         """
         self.x_vel = 4.0
 
-    def jump(self):
+    def update_x(self) -> None:
+        """
+        Updates X Movement
+
+        After being hit immune for 3 seconds and then immunity wears off
+        """
+        if self.immunity and pygame.time.get_ticks() - self.collision_time > 2500:
+            self.image.set_alpha(255)
+            self.immunity = False
+        super().update_x()
+
+    def jump(self) -> None:
         """
         Moves player up by setting y_vel to -15.0
         """

@@ -31,7 +31,7 @@ class Enemy(PhysicsObject):
         player: Player
              Reference to the player that has been collided with.
         """
-        player.kill()
+        player.hit()
 
     def flip_direction(self) -> None:
         """
