@@ -16,11 +16,13 @@ class DrawManager:
         )
 
     def adjust_screen(self):
+        rbuffer=300
+        lbuffer=100
         w, h = pygame.display.get_surface().get_size()
-        if GameState.player.position.x + self.screen_offset[0] < 20:
-            self.screen_offset[0] = 20 - GameState.player.position.x
-        if GameState.player.position.right + self.screen_offset[0] > w - 20:
-            self.screen_offset[0] = w - 20 - GameState.player.position.right
+        if GameState.player.position.x + self.screen_offset[0] < lbuffer:
+            self.screen_offset[0] = lbuffer - GameState.player.position.x
+        if GameState.player.position.right + self.screen_offset[0] > w - rbuffer:
+            self.screen_offset[0] = w - rbuffer - GameState.player.position.right
 
     @staticmethod
     def draw_text(text, font, color, surface, x, y):
