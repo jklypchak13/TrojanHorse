@@ -15,9 +15,15 @@ PATH_TO_LEVELS: str = pathlib.Path(__file__).parent.absolute()
 PLATFORM_IMAGE_URL: str = Path(
     __file__
 ).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "GRASS_TILE.png"
-ENEMY_IMAGE_URL: str = Path(
+ENEMY_IMAGE_URL_1: str = Path(
     __file__
 ).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "greek_soldier_walk1.png"
+ENEMY_IMAGE_URL_2: str = Path(
+    __file__
+).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "greek_soldier_walk2.png"
+ENEMY_IMAGE_URL_3: str = Path(
+    __file__
+).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "greek_soldier_walk3.png"
 ENEMY_WIDTH: int = 30
 ENEMY_HEIGHT: int = 50
 
@@ -68,6 +74,8 @@ def load_level(
         x_velocity: int = physics_object[2]
 
         current_rect: Rect = Rect(x, y, ENEMY_WIDTH, ENEMY_HEIGHT)
-        physics_objects.append(Enemy(current_rect, ENEMY_IMAGE_URL, x_velocity, 0))
+        e = Enemy(current_rect, ENEMY_IMAGE_URL_1, x_velocity, 0)
+        e.set_animation_frames([ENEMY_IMAGE_URL_1, ENEMY_IMAGE_URL_2, ENEMY_IMAGE_URL_3])
+        physics_objects.append(e)
 
     return starting_position, static_objects, physics_objects
