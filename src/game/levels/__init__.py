@@ -12,18 +12,15 @@ from pathlib import Path
 
 # Intialize Useful Constants
 PATH_TO_LEVELS: str = pathlib.Path(__file__).parent.absolute()
-PLATFORM_IMAGE_URL: str = Path(
+ASSET_PATH: str = Path(
     __file__
-).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "GRASS_TILE.png"
-ENEMY_IMAGE_URL_1: str = Path(
-    __file__
-).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "greek_soldier_walk1.png"
-ENEMY_IMAGE_URL_2: str = Path(
-    __file__
-).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "greek_soldier_walk2.png"
-ENEMY_IMAGE_URL_3: str = Path(
-    __file__
-).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep + "greek_soldier_walk3.png"
+).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep
+PLATFORM_IMAGE_URL: str = ASSET_PATH + "wood_platform.png"
+HAY_IMAGE_URL: str = ASSET_PATH + "hay_bale.png"
+GROUND_IMAGE_URL: str = ASSET_PATH + "GRASS_TILE.png"
+ENEMY_IMAGE_URL_1: str = ASSET_PATH + "greek_soldier_walk1.png"
+ENEMY_IMAGE_URL_2: str = ASSET_PATH + "greek_soldier_walk2.png"
+ENEMY_IMAGE_URL_3: str = ASSET_PATH + "greek_soldier_walk3.png"
 ENEMY_WIDTH: int = 30
 ENEMY_HEIGHT: int = 50
 
@@ -57,15 +54,19 @@ def load_level(
         level_data["starting_position"][1],
     )
 
+    # Read Ground Objects (as platforms)
+    for ground in level_data["ground"]:
+        current_rect: Rect = Rect(*ground)
+        static_objects.append(Platform(current_rect, GROUND_IMAGE_URL, True))\
+
     # Read Static Objects/Platforms
     for static_object in level_data["static_objects"]:
-        x: int = static_object[0]
-        y: int = static_object[1]
-        width: int = static_object[2]
-        height: int = static_object[3]
+        current_rect: Rect = Rect(*static_object)
+        image_url: str = PLATFORM_IMAGE_URL
 
-        current_rect: Rect = Rect(x, y, width, height)
-        static_objects.append(Platform(current_rect, PLATFORM_IMAGE_URL, True))
+        if current_rect.y == 500:
+            image_url = HAY_IMAGE_URL
+        static_objects.append(Platform(current_rect, image_url, True))
 
     # Read Physics Objects/Enemies
     for physics_object in level_data["physics_objects"]:
@@ -74,8 +75,10 @@ def load_level(
         x_velocity: int = physics_object[2]
 
         current_rect: Rect = Rect(x, y, ENEMY_WIDTH, ENEMY_HEIGHT)
+
         e = Enemy(current_rect, ENEMY_IMAGE_URL_1, x_velocity, 0)
-        e.set_animation_frames([ENEMY_IMAGE_URL_1, ENEMY_IMAGE_URL_2, ENEMY_IMAGE_URL_3])
+        e.set_animation_frames(
+            [ENEMY_IMAGE_URL_1, ENEMY_IMAGE_URL_2, ENEMY_IMAGE_URL_3])
         physics_objects.append(e)
 
     return starting_position, static_objects, physics_objects
