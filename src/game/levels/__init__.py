@@ -82,7 +82,7 @@ def load_level(
         )
         physics_objects.append(e)
 
-    end_position: Tuple[int, int] = tuple(level_data["end_position"])
+    end_position: Tuple[int, int] = tuple(level_data["goal"])
     star: Star = Star(Rect(*end_position, *STAR_DIMENSIONS), STAR_IMAGE_URL)
 
     return starting_position, static_objects, physics_objects, star
