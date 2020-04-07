@@ -43,6 +43,7 @@ def game(screen, main_clock, PATH_TO_ROOT):
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.display.quit()
                 pygame.quit()
                 sys.exit()
 
@@ -56,7 +57,8 @@ def game(screen, main_clock, PATH_TO_ROOT):
         else:
             cbackground = pygame.image.load(f"{PATH_TO_ASSETS}GameOver.jpg")
             screen.blit(cbackground, (0, 0))  # Overlay background image
-            draw_manager.draw_text("Game Over", Gofont, cval.white, screen, 250, 250)
+            draw_manager.draw_text("Game Over", Gofont,
+                                   cval.white, screen, 250, 250)
             pygame.display.update()
 
         main_clock.tick(60)
