@@ -1,4 +1,5 @@
 import pygame
+
 from .physics_object import PhysicsObject
 from .player import Player
 
