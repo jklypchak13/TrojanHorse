@@ -1,8 +1,8 @@
 # Package imports
-import os
 
 import pygame
 
+from assets import MENU, TWITTER_ICON
 from common.button import Button
 from game.engine import game
 from game.menu.credits_screen import credits_screen
@@ -18,13 +18,9 @@ def main_menu(window, main_clock, PATH_TO_ROOT):
     running = True
 
     # load image assets
-    background = pygame.image.load(
-        f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}main_menu_background.png"
-    )
+    background = pygame.image.load(MENU)
 
-    img_twitter = pygame.image.load(
-        f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}twitter_icon.png"
-    )
+    img_twitter = pygame.image.load(TWITTER_ICON)
 
     while running:
         window.fill(cval.black)  # Default to fill window with black

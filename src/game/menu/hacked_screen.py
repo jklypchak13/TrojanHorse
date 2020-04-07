@@ -1,9 +1,9 @@
 # Package imports
 import sys
-import os
+
 import pygame
 
-# Relative imports
+from assets import HACKED_BKG, HACKED_ICON
 from game.style import color as cval
 from game.style import text as txt
 
@@ -16,18 +16,13 @@ def draw_text(text, font, color, surface, x, y):
 
 
 def hacked_screen(window, main_clock, PATH_TO_ROOT):
-    hacked_icon = pygame.image.load(
-        f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}hacked_icon.png"
-    )
-    
-    bkg_img = pygame.image.load(
-        f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}hacked_background.jpg"
-    )
-    
+    hacked_icon = pygame.image.load(HACKED_ICON)
+
+    bkg_img = pygame.image.load(HACKED_BKG)
+
     msg = txt.hacked_title.render("You've been hacked!", 1, cval.white)
 
     running = True
-    print("FROM HACKED_SCREEN: running =", running)
     while running:
         window.fill(cval.black)
         window.blit(bkg_img, (0, 0))
@@ -57,5 +52,3 @@ def hacked_screen(window, main_clock, PATH_TO_ROOT):
         # Update window and set clock speed
         pygame.display.update()
         main_clock.tick(60)
-
-    print("FROM TEAM_SCREEN: running =", running)

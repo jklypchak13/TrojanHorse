@@ -27,3 +27,9 @@ ENEMY_SPRITE: List[str] = [
 
 # Menu Assets
 MENU_PATH: str = f"{PATH}{os.sep}menu{os.sep}"
+
+CREDITS: str = f"{MENU_PATH}credits_background.jpg"
+HACKED_ICON: str = f"{MENU_PATH}hacked_icon.png"
+HACKED_BKG: str = f"{MENU_PATH}hacked_background.jpg"
+MENU: str = f"{MENU_PATH}main_menu_background.png"
+TWITTER_ICON: str = f"{MENU_PATH}twitter_icon.png"
