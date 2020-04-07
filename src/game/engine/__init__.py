@@ -31,11 +31,14 @@ def game(screen: pygame.Surface, main_clock: pygame.time.Clock) -> None:
     collision_manager = CollisionManager()
     input_manager = InputManager()
 
-    while GameState.player.alive():
+    running: bool = True
+    while running and GameState.player.alive():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                running = False
 
         draw_manager.adjust_screen()
         input_manager.handle_input()
@@ -51,11 +54,14 @@ def game(screen: pygame.Surface, main_clock: pygame.time.Clock) -> None:
         main_clock.tick(60)
 
     if not GameState.player.alive():
-        while True:
+        running = True
+        while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    running = False
             draw_manager.draw_game_over()
             pygame.display.update()
 
