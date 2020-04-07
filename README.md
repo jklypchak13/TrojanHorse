@@ -1,4 +1,4 @@
-# Trojan Horse
+# Horse
 
 A game guise for a nefarious second purpose, non-chalantly named "Trojan Horse".
 While the **victim** plays a `2D` platformer with a Troy theme, in a second
