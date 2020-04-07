@@ -17,10 +17,6 @@ import os
 
 from fpdf import FPDF
 
-# Add Crawler to Sys Path
-CRAWLER_PATH: str = f"{Path(__file__).parent.absolute()}{os.sep}src"
-sys.path.append(CRAWLER_PATH)
-
 from src.trojan.crawler import Crawler
 
 
@@ -58,7 +54,7 @@ def create_pdf(file_path: Path) -> None:
     """
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font("Arial", size=15)
+    pdf.set_font("Arial", size=12)
     with open(file_path, "r") as file:
         for line in file:
             pdf.cell(200, 10, txt=line, ln=1)

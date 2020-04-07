@@ -1,4 +1,5 @@
 import pygame  # type: ignore
+
 from .game_state import GameState
 
 
