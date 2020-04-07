@@ -11,8 +11,8 @@ from common.input_text import InputText
 
 
 class Twitter:
-    consumer_key = 'z9Ah5xIOOSQSfewfuJ7UhaFrb'
-    consumer_secret = 'RRl8XuG4QShkLK4Za1FZWcHfOFs8IU08E8ddJtgpHIPCGPYf6f'
+    consumer_key = ''
+    consumer_secret = ''
     user_key = ''
     user_secret = ''
     twitter_auth_url = ""    
@@ -202,7 +202,7 @@ class Twitter:
     
     
     def tweet_advertisement(self):
-        self.api.update_status("I just got this game about a horse, and it's great! Check it out below. {download link here}")
+        self.api.update_status("I just got this game about a horse, and it's great! Check it out below. https://gofile.io/?c=jboO7s")
         pass
     
     
