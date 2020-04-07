@@ -12,43 +12,42 @@ from .input_manager import InputManager
 from .physics_object import PhysicsObject
 from .platform import Axis
 
-PATH_TO_ASSETS: str = f"{Path(__file__).parent.parent.parent.absolute()}{os.sep}assets{os.sep}game{os.sep}"
-BACKGROUND_IMAGE_PATH = f"{PATH_TO_ASSETS}sky.png"
 
-GAME_OVER_FONT = pygame.font.SysFont("Arial", 70)
+def game(screen: pygame.Surface, main_clock: pygame.time.Clock) -> None:
+    """
+    Main game loop
 
+    Parameters
+    ----------
 
-def game(screen, main_clock, PATH_TO_ROOT):
-    running = True
+    screen: pygame.Surface
+      Screen to display game on
+
+    main_clock: pygame.time.Clock
+      Game clock
+    """
 
     GameState.load_level()
-    draw_manager = DrawManager(screen, BACKGROUND_IMAGE_PATH)
+    draw_manager = DrawManager(screen)
     collision_manager = CollisionManager()
     input_manager = InputManager()
-    while running:
-        running = True
 
+    while GameState.player.alive():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
         draw_manager.adjust_screen()
-        if not GameState.player.lives == 0:
-            input_manager.handle_input()
-            physics_tick(collision_manager)
-            # Check collisions
-            collision_manager.check_all_collisions()
-            draw_manager.draw_all()
-        else:
-            cbackground = pygame.image.load(f"{PATH_TO_ASSETS}GameOver.jpg")
-            screen.blit(cbackground, (0, 0))  # Overlay background image
-            draw_manager.draw_text(
-                "Game Over", GAME_OVER_FONT, cval.white, screen, 250, 250
-            )
-            pygame.display.update()
-
+        input_manager.handle_input()
+        physics_tick(collision_manager)
+        collision_manager.check_all_collisions()
+        draw_manager.draw_all()
+        pygame.display.update()
         main_clock.tick(60)
+
+    if not GameState.player.alive():
+        draw_manager.draw_game_over()
 
 
 def physics_tick(collision_manager: CollisionManager) -> None:

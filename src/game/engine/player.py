@@ -27,7 +27,6 @@ class Player(PhysicsObject):
         """
         Hits this player. Remove a life/health or end the game.
         """
-        # TODO death animation?
         self.immunity = True
         self.collision_time = pygame.time.get_ticks()
         self.image.set_alpha(127.5)
@@ -67,6 +66,18 @@ class Player(PhysicsObject):
             self.position.x, self.position.y = self.start_position
             self.hit()
         super().update_y()
+
+    def alive(self) -> bool:
+        """
+        Check to see if Player is alive
+
+        Returns
+        -------
+
+        bool
+          self.lives > 0
+        """
+        return self.lives > 0
 
     def jump(self) -> None:
         """
