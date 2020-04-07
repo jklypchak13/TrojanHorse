@@ -12,6 +12,12 @@ This project was made for [CSE
 
 ![Start Screen](./screenshots/start_screen.png)
 
+![Greek Soldiers](./screenshots/greek_soldier.png)
+
+![Platforming](./screenshots/platform_puzzles.png)
+
+![Get the Star](./screenshots/reach_the_objective.png)
+
 ## Installation
 
 Install [Python](https://www.python.org/downloads/)
