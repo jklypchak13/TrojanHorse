@@ -7,6 +7,7 @@ from game.style import text
 from .game_state import GameState
 
 GAME_OVER_FONT = pygame.font.SysFont("Arial", 70)
+MESSAGE_FONT = pygame.font.SysFont("Arial", 40)
 
 
 class DrawManager:
@@ -29,7 +30,8 @@ class DrawManager:
         if GameState.player.position.x + self.screen_offset[0] < lbuffer:
             self.screen_offset[0] = lbuffer - GameState.player.position.x
         if GameState.player.position.right + self.screen_offset[0] > w - rbuffer:
-            self.screen_offset[0] = w - rbuffer - GameState.player.position.right
+            self.screen_offset[0] = w - rbuffer - \
+                GameState.player.position.right
 
     @staticmethod
     def draw_text(text: str, font, color, surface, x, y):
@@ -52,7 +54,11 @@ class DrawManager:
         """
         cbackground = pygame.image.load(GAME_OVER)
         self.screen.blit(cbackground, (0, 0))  # Overlay background image
-        self.draw_text("Game Over", GAME_OVER_FONT, cval.white, self.screen, 250, 250)
+        self.draw_text("Game Over", GAME_OVER_FONT,
+                       cval.white, self.screen, 250, 250)
+
+        self.draw_text("Press ESC to return to the main menu", MESSAGE_FONT,
+                       cval.white, self.screen, 125, 350)
 
     def draw_all(self):
         """
