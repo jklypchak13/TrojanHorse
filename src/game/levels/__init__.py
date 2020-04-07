@@ -79,6 +79,11 @@ def load_level(
         e = Enemy(current_rect, ENEMY_IMAGE_URL_1, x_velocity, 0)
         e.set_animation_frames(
             [ENEMY_IMAGE_URL_1, ENEMY_IMAGE_URL_2, ENEMY_IMAGE_URL_3])
+
+        # Flip the Animation Frames if it starts walking to the right.
+        if x_velocity > 0:
+            e.flip_direction()
+            e.x_vel *= -1
         physics_objects.append(e)
 
     return starting_position, static_objects, physics_objects
