@@ -54,6 +54,7 @@ def game(screen: pygame.Surface, main_clock: pygame.time.Clock) -> None:
         main_clock.tick(60)
 
     if not GameState.player.alive():
+        GameState.level = 1
         running = True
         while running:
             for event in pygame.event.get():
