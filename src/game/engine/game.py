@@ -42,6 +42,11 @@ def game(screen: pygame.Surface, main_clock: pygame.time.Clock) -> None:
         input_manager.handle_input()
         physics_tick(collision_manager)
         collision_manager.check_all_collisions()
+        if collision_manager.player_collides_goal():
+            # Level completed
+            print(f"Level {GameState.level} completed!")
+            GameState.next_level()
+
         draw_manager.draw_all()
         pygame.display.update()
         main_clock.tick(60)

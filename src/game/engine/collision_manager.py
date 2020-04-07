@@ -8,6 +8,18 @@ class CollisionManager:
         # Check dynamic and player against PhysicsObjects
         self.player_collides_phys()
 
+    def player_collides_goal(self) -> bool:
+        """
+        Player collides with the goal of this level
+
+        Returns
+        -------
+
+        bool
+          if they collided
+        """
+        return GameState.player in GameState.goal
+
     def phys_collides_static(self, axis: Axis):
         for s in GameState.static_objects:
             for p in GameState.physics_objects:

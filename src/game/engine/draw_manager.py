@@ -68,6 +68,7 @@ class DrawManager:
             obj.draw(self.screen, self.screen_offset)
         for obj in GameState.physics_objects:
             obj.draw(self.screen, self.screen_offset)
+        GameState.goal.draw(self.screen, self.screen_offset)
         GameState.player.draw(self.screen, self.screen_offset)
         self.draw_text(
             f"Lives: {GameState.player.lives}",
