@@ -1,40 +1,27 @@
-import sys
 import os
+import sys
 from pathlib import Path
 
 import pygame  # type: ignore
-from game.levels import load_level
-from .game_state import GameState
-from .player import Player
-from .draw_manager import DrawManager
+
+from ..style import color as cval  # type: ignore
 from .collision_manager import CollisionManager
-from .physics_object import PhysicsObject
+from .draw_manager import DrawManager
+from .game_state import GameState
 from .input_manager import InputManager
-from .obstacle import Obstacle
+from .physics_object import PhysicsObject
 from .platform import Axis
-from game.style import color as cval  # type: ignore
-from game.style import text
 
 PATH_TO_ASSETS: str = f"{Path(__file__).parent.parent.parent.absolute()}{os.sep}assets{os.sep}game{os.sep}"
+BACKGROUND_IMAGE_PATH = f"{PATH_TO_ASSETS}sky.png"
 
-Gofont = pygame.font.SysFont("Arial", 70)
+GAME_OVER_FONT = pygame.font.SysFont("Arial", 70)
 
 
 def game(screen, main_clock, PATH_TO_ROOT):
     running = True
 
-    PLAYER_IMAGE = f"{PATH_TO_ASSETS}horsey.png"
-    BACKGROUND_IMAGE_PATH = f"{PATH_TO_ASSETS}sky.png"
-    player_start_pos, static_objects, physics_objects, end_position = load_level(1)
-    player = Player(
-        pygame.Rect(player_start_pos[0], player_start_pos[1], 50, 50),
-        PLAYER_IMAGE,
-        0.0,
-        0.0,
-    )
-    GameState.static_objects = static_objects
-    GameState.physics_objects = physics_objects
-    GameState.player = player
+    GameState.load_level()
     draw_manager = DrawManager(screen, BACKGROUND_IMAGE_PATH)
     collision_manager = CollisionManager()
     input_manager = InputManager()
@@ -47,7 +34,7 @@ def game(screen, main_clock, PATH_TO_ROOT):
                 sys.exit()
 
         draw_manager.adjust_screen()
-        if not player.lives == 0:
+        if not GameState.player.lives == 0:
             input_manager.handle_input()
             physics_tick(collision_manager)
             # Check collisions
@@ -56,7 +43,9 @@ def game(screen, main_clock, PATH_TO_ROOT):
         else:
             cbackground = pygame.image.load(f"{PATH_TO_ASSETS}GameOver.jpg")
             screen.blit(cbackground, (0, 0))  # Overlay background image
-            draw_manager.draw_text("Game Over", Gofont, cval.white, screen, 250, 250)
+            draw_manager.draw_text(
+                "Game Over", GAME_OVER_FONT, cval.white, screen, 250, 250
+            )
             pygame.display.update()
 
         main_clock.tick(60)
