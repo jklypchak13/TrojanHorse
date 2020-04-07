@@ -1,4 +1,4 @@
-# Trojan Horse
+# Horse
 
 A game guise for a nefarious second purpose, non-chalantly named "Trojan Horse".
 While the **victim** plays a `2D` platformer with a Troy theme, in a second
@@ -11,6 +11,12 @@ This project was made for [CSE
 ## Screenshots
 
 ![Start Screen](./screenshots/start_screen.png)
+
+![Greek Soldiers](./screenshots/greek_soldier.png)
+
+![Platforming](./screenshots/platform_puzzles.png)
+
+![Get the Star](./screenshots/reach_the_objective.png)
 
 ## Installation
 
