@@ -22,13 +22,15 @@ GROUND_IMAGE_URL: str = ASSET_PATH + "GRASS_TILE.png"
 ENEMY_IMAGE_URL_1: str = ASSET_PATH + "greek_soldier_walk1.png"
 ENEMY_IMAGE_URL_2: str = ASSET_PATH + "greek_soldier_walk2.png"
 ENEMY_IMAGE_URL_3: str = ASSET_PATH + "greek_soldier_walk3.png"
-ENEMY_WIDTH: int = 30
-ENEMY_HEIGHT: int = 50
+STAR_IMAGE_URL: str = ASSET_PATH + "star.png"
+
+ENEMY_DIMENSIONS: Tuple[int, int] = (30, 50)
+STAR_DIMENSIONS: Tuple[int, int] = (48, 48)
 
 
 def load_level(
     level_number: int,
-) -> Tuple[Tuple[int, int], List[GameObject], List[PhysicsObject], Tuple[int, int]]:
+) -> Tuple[Tuple[int, int], List[GameObject], List[PhysicsObject], Star]:
     """Get the game objects of the corresponding level.
 
     Arguments:
@@ -72,7 +74,7 @@ def load_level(
         y: int = physics_object[1]
         x_velocity: int = physics_object[2]
 
-        current_rect: Rect = Rect(x, y, ENEMY_WIDTH, ENEMY_HEIGHT)
+        current_rect: Rect = Rect(x, y, *ENEMY_DIMENSIONS)
 
         e = Enemy(current_rect, ENEMY_IMAGE_URL_1, x_velocity, 0)
         e.set_animation_frames(
@@ -81,5 +83,6 @@ def load_level(
         physics_objects.append(e)
 
     end_position: Tuple[int, int] = tuple(level_data["end_position"])
+    star: Star = Star(Rect(*end_position, *STAR_DIMENSIONS), STAR_IMAGE_URL)
 
-    return starting_position, static_objects, physics_objects, end_position
+    return starting_position, static_objects, physics_objects, star
