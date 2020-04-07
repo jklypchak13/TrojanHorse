@@ -16,8 +16,8 @@ class DrawManager:
         )
 
     def adjust_screen(self):
-        rbuffer=300
-        lbuffer=100
+        rbuffer = 300
+        lbuffer = 100
         w, h = pygame.display.get_surface().get_size()
         if GameState.player.position.x + self.screen_offset[0] < lbuffer:
             self.screen_offset[0] = lbuffer - GameState.player.position.x

@@ -1,8 +1,9 @@
 from typing import Tuple, List, Dict, Any
-from game.engine.enemy import Enemy
-from game.engine.platform import Platform
-from game.engine.game_object import GameObject
-from game.engine.physics_object import PhysicsObject
+from ..engine.enemy import Enemy
+from ..engine.platform import Platform
+from ..engine.game_object import GameObject
+from ..engine.physics_object import PhysicsObject
+from ..engine.star import Star
 
 import json
 import os
