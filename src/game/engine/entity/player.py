@@ -50,7 +50,7 @@ class Player(PhysicsObject):
 
         After being hit immune for 3 seconds and then immunity wears off
         """
-        if self.immunity and pygame.time.get_ticks() - self.collision_time > 1000:
+        if self.immunity and pygame.time.get_ticks() - self.collision_time > 500:
             self.image.set_alpha(255)
             self.immunity = False
         super().update_x()
