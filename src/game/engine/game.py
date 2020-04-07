@@ -39,12 +39,14 @@ def game(screen, main_clock, PATH_TO_ROOT):
     collision_manager = CollisionManager()
     input_manager = InputManager()
     while running:
-        running = True
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
 
         draw_manager.adjust_screen()
         if not player.lives == 0:
