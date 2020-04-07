@@ -25,7 +25,7 @@ def game(screen, main_clock, PATH_TO_ROOT):
 
     PLAYER_IMAGE = f"{PATH_TO_ASSETS}horsey.png"
     BACKGROUND_IMAGE_PATH = f"{PATH_TO_ASSETS}sky.png"
-    player_start_pos, static_objects, physics_objects = load_level(1)
+    player_start_pos, static_objects, physics_objects, end_position = load_level(1)
     player = Player(
         pygame.Rect(player_start_pos[0], player_start_pos[1], 50, 50),
         PLAYER_IMAGE,

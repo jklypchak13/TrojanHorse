@@ -27,7 +27,7 @@ ENEMY_HEIGHT: int = 50
 
 def load_level(
     level_number: int,
-) -> Tuple[Tuple[int, int], List[GameObject], List[PhysicsObject]]:
+) -> Tuple[Tuple[int, int], List[GameObject], List[PhysicsObject], Tuple[int, int]]:
     """Get the game objects of the corresponding level.
 
     Arguments:
@@ -49,15 +49,12 @@ def load_level(
     # Initialize Data Structures
     static_objects: List[int] = []
     physics_objects: List[int] = []
-    starting_position: Tuple[int, int] = (
-        level_data["starting_position"][0],
-        level_data["starting_position"][1],
-    )
+    starting_position: Tuple[int, int] = tuple(level_data["starting_position"])
 
     # Read Ground Objects (as platforms)
     for ground in level_data["ground"]:
         current_rect: Rect = Rect(*ground)
-        static_objects.append(Platform(current_rect, GROUND_IMAGE_URL, True))\
+        static_objects.append(Platform(current_rect, GROUND_IMAGE_URL, True))
 
     # Read Static Objects/Platforms
     for static_object in level_data["static_objects"]:
@@ -78,7 +75,10 @@ def load_level(
 
         e = Enemy(current_rect, ENEMY_IMAGE_URL_1, x_velocity, 0)
         e.set_animation_frames(
-            [ENEMY_IMAGE_URL_1, ENEMY_IMAGE_URL_2, ENEMY_IMAGE_URL_3])
+            [ENEMY_IMAGE_URL_1, ENEMY_IMAGE_URL_2, ENEMY_IMAGE_URL_3]
+        )
         physics_objects.append(e)
 
-    return starting_position, static_objects, physics_objects
+    end_position: Tuple[int, int] = tuple(level_data["end_position"])
+
+    return starting_position, static_objects, physics_objects, end_position
