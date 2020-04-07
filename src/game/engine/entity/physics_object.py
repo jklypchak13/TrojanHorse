@@ -35,7 +35,7 @@ class PhysicsObject(GameObject):
         super().__init__(position, image_path)
         self.x_vel = x_vel
         self.y_vel = y_vel
-        self.direction = Direction.Left
+        self.direction = Direction.Left if x_vel < 0 else Direction.Right
         self.gravity = 0.9
 
     def update_x(self) -> None:

@@ -20,7 +20,6 @@ class Enemy(PhysicsObject):
         self, position: pygame.Rect, image_path: str, x_vel: float, y_vel: float
     ):
         super().__init__(position, image_path, x_vel, y_vel)
-        self.x_vel = -1
 
     def handle_player_collision(self, player: Player) -> None:
         """
@@ -42,7 +41,8 @@ class Enemy(PhysicsObject):
         if self.frames is not None:
             flipped_frames = []
             for frame in self.frames:
-                flipped_frames.append(pygame.transform.flip(frame, True, False))
+                flipped_frames.append(
+                    pygame.transform.flip(frame, True, False))
             self.frames = flipped_frames
 
         self.x_vel *= -1
