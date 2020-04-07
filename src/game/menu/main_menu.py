@@ -3,13 +3,13 @@ import os
 
 import pygame
 
-from ...common.button import Button
-from ...game.style import color as cval
-from ...game.style import text as txt
-from ...trojan.twitter import Twitter
-from ..engine.game import game
-from .credits_screen import credits_screen
-from .hacked_screen import hacked_screen
+from common.button import Button
+from game.engine.game import game
+from game.menu.credits_screen import credits_screen
+from game.menu.hacked_screen import hacked_screen
+from game.style import color as cval
+from game.style import text as txt
+from trojan.twitter import Twitter
 
 
 def main_menu(window, main_clock, PATH_TO_ROOT):
