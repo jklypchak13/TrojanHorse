@@ -1,6 +1,7 @@
 import pygame  # type: ignore
 from .game_state import GameState
-from .platform import Axis
+
+from .entity import Platform, Axis
 
 
 class CollisionManager:

@@ -4,7 +4,7 @@ import os
 import pygame
 
 from common.button import Button
-from game.engine.game import game
+from game.engine import game
 from game.menu.credits_screen import credits_screen
 from game.menu.hacked_screen import hacked_screen
 from game.style import color as cval

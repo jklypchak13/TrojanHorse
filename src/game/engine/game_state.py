@@ -5,10 +5,7 @@ from typing import List, Tuple
 import pygame  # type: ignore
 
 from ..levels import load_level
-from .game_object import GameObject
-from .physics_object import PhysicsObject
-from .player import Player
-from .star import Star
+from .entity import GameObject, PhysicsObject, Player, Star
 
 PATH_TO_ASSETS: str = f"{Path(__file__).parent.parent.parent.absolute()}{os.sep}assets{os.sep}game{os.sep}"
 PLAYER_IMAGE = f"{PATH_TO_ASSETS}horsey.png"
