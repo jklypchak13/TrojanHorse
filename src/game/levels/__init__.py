@@ -64,15 +64,14 @@ def load_level(
 
         current_rect: Rect = Rect(x, y, *ENEMY_DIMENSIONS)
 
-        e = Enemy(current_rect, ENEMY_IMAGE_URL_1, x_velocity, 0)
+        e = Enemy(current_rect, ENEMY, x_velocity, 0)
         e.set_animation_frames(ENEMY_SPRITE)
 
         # Flip the Animation Frames if it starts walking to the right.
         if x_velocity > 0:
             e.flip_direction()
             e.x_vel *= -1
-        
-        
+
         physics_objects.append(e)
 
     end_position: Tuple[int, int] = tuple(level_data["goal"])
