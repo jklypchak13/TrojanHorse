@@ -2,7 +2,7 @@ from typing import Tuple
 
 import pygame  # type: ignore
 
-from .physics_object import PhysicsObject, Direction
+from .physics_object import Direction, PhysicsObject
 
 
 class Player(PhysicsObject):

@@ -17,8 +17,8 @@ Handle movement
 """
 from __future__ import annotations
 
-from typing import Tuple
 import time
+from typing import Tuple
 
 import pygame  # type: ignore
 

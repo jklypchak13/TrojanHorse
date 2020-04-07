@@ -1,12 +1,10 @@
 import pygame  # type: ignore
 
-from .game_state import GameState
+from assets import GAME_OVER, SKY
 from game.style import color as cval  # type: ignore
 from game.style import text
-from assets import SKY, GAME_OVER
 
-from pathlib import Path
-import os
+from .game_state import GameState
 
 GAME_OVER_FONT = pygame.font.SysFont("Arial", 70)
 

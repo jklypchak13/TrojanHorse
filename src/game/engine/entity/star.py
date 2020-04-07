@@ -1,9 +1,4 @@
-from typing import Any
-
 from .game_object import GameObject
-from .physics_object import PhysicsObject
-
-import pygame  # type: ignore
 
 
 class Star(GameObject):

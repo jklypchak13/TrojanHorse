@@ -1,13 +1,13 @@
-from typing import Tuple, List, Dict, Any
-from ..engine.entity import Enemy, Platform, GameObject, PhysicsObject, Star
-
 import json
 import os
-from pygame import Rect
 import pathlib
-from pathlib import Path
+from typing import Any, Dict, List, Tuple
 
-from assets import PLATFORM, GRASS, STAR, HAY, ENEMY, ENEMY_SPRITE
+from pygame import Rect
+
+from assets import ENEMY, ENEMY_SPRITE, GRASS, HAY, PLATFORM, STAR
+
+from ..engine.entity import Enemy, GameObject, PhysicsObject, Platform, Star
 
 # Intialize Useful Constants
 PATH_TO_LEVELS: str = pathlib.Path(__file__).parent.absolute()

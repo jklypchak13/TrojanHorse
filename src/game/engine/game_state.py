@@ -1,12 +1,11 @@
-import os
-from pathlib import Path
 from typing import List, Tuple
 
 import pygame  # type: ignore
 
+from assets import PLAYER
+
 from ..levels import load_level
 from .entity import GameObject, PhysicsObject, Player, Star
-from assets import PLAYER
 
 PLAYER_DIMENSIONS: Tuple[int, int] = (50, 50)
 
