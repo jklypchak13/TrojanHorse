@@ -1,4 +1,5 @@
 import pygame
+
 from .physics_object import PhysicsObject
 from .player import Player
 
@@ -37,7 +38,7 @@ class Enemy(PhysicsObject):
         """
         Change the enemy's walking direction from right to left or vice versa.
         """
-        
+
         if self.frames is not None:
             flipped_frames = []
             for frame in self.frames:

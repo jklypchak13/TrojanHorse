@@ -1,33 +1,24 @@
-from typing import Tuple, List, Dict, Any
-from game.engine.enemy import Enemy
-from game.engine.platform import Platform
-from game.engine.game_object import GameObject
-from game.engine.physics_object import PhysicsObject
-
 import json
 import os
-from pygame import Rect
 import pathlib
-from pathlib import Path
+from typing import Any, Dict, List, Tuple
+
+from pygame import Rect
+
+from assets import ENEMY, ENEMY_SPRITE, GRASS, HAY, PLATFORM, STAR
+
+from ..engine.entity import Enemy, GameObject, PhysicsObject, Platform, Star
 
 # Intialize Useful Constants
 PATH_TO_LEVELS: str = pathlib.Path(__file__).parent.absolute()
-ASSET_PATH: str = Path(
-    __file__
-).parent.parent.parent.absolute().__str__() + os.path.sep + "assets" + os.path.sep + "game" + os.path.sep
-PLATFORM_IMAGE_URL: str = ASSET_PATH + "wood_platform.png"
-HAY_IMAGE_URL: str = ASSET_PATH + "hay_bale.png"
-GROUND_IMAGE_URL: str = ASSET_PATH + "GRASS_TILE.png"
-ENEMY_IMAGE_URL_1: str = ASSET_PATH + "greek_soldier_walk1.png"
-ENEMY_IMAGE_URL_2: str = ASSET_PATH + "greek_soldier_walk2.png"
-ENEMY_IMAGE_URL_3: str = ASSET_PATH + "greek_soldier_walk3.png"
-ENEMY_WIDTH: int = 30
-ENEMY_HEIGHT: int = 50
+
+ENEMY_DIMENSIONS: Tuple[int, int] = (30, 50)
+STAR_DIMENSIONS: Tuple[int, int] = (48, 48)
 
 
 def load_level(
     level_number: int,
-) -> Tuple[Tuple[int, int], List[GameObject], List[PhysicsObject]]:
+) -> Tuple[Tuple[int, int], List[GameObject], List[PhysicsObject], Star]:
     """Get the game objects of the corresponding level.
 
     Arguments:
@@ -49,23 +40,20 @@ def load_level(
     # Initialize Data Structures
     static_objects: List[int] = []
     physics_objects: List[int] = []
-    starting_position: Tuple[int, int] = (
-        level_data["starting_position"][0],
-        level_data["starting_position"][1],
-    )
+    starting_position: Tuple[int, int] = tuple(level_data["starting_position"])
 
     # Read Ground Objects (as platforms)
     for ground in level_data["ground"]:
         current_rect: Rect = Rect(*ground)
-        static_objects.append(Platform(current_rect, GROUND_IMAGE_URL, True))\
+        static_objects.append(Platform(current_rect, GRASS, True))
 
     # Read Static Objects/Platforms
     for static_object in level_data["static_objects"]:
         current_rect: Rect = Rect(*static_object)
-        image_url: str = PLATFORM_IMAGE_URL
+        image_url: str = PLATFORM
 
         if current_rect.y == 500:
-            image_url = HAY_IMAGE_URL
+            image_url = HAY
         static_objects.append(Platform(current_rect, image_url, True))
 
     # Read Physics Objects/Enemies
@@ -74,11 +62,13 @@ def load_level(
         y: int = physics_object[1]
         x_velocity: int = physics_object[2]
 
-        current_rect: Rect = Rect(x, y, ENEMY_WIDTH, ENEMY_HEIGHT)
+        current_rect: Rect = Rect(x, y, *ENEMY_DIMENSIONS)
 
-        e = Enemy(current_rect, ENEMY_IMAGE_URL_1, x_velocity, 0)
-        e.set_animation_frames(
-            [ENEMY_IMAGE_URL_1, ENEMY_IMAGE_URL_2, ENEMY_IMAGE_URL_3])
+        e = Enemy(current_rect, ENEMY, x_velocity, 0)
+        e.set_animation_frames(ENEMY_SPRITE)
         physics_objects.append(e)
 
-    return starting_position, static_objects, physics_objects
+    end_position: Tuple[int, int] = tuple(level_data["goal"])
+    star: Star = Star(Rect(*end_position, *STAR_DIMENSIONS), STAR)
+
+    return starting_position, static_objects, physics_objects, star

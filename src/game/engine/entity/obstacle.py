@@ -1,6 +1,8 @@
-import pygame  # type: ignore
 import os
 import pathlib
+
+import pygame  # type: ignore
+
 from .physics_object import PhysicsObject
 from .player import Player
 
@@ -41,15 +43,15 @@ class Obstacle:
         screen: Any
              The screen to draw the player onto
         """
-        draw_position=self.position.move(offset[0],offset[1])
+        draw_position = self.position.move(offset[0], offset[1])
         screen.blit(self.image, draw_position)
 
-    def handle_collision(self, player:Player):
+    def handle_collision(self, player: Player):
         """
         Does nothing.
         """
         pass
 
-    def handle_collision(self, physics_object:PhysicsObject):
-        #TODO collide with phys object
+    def handle_collision(self, physics_object: PhysicsObject):
+        # TODO collide with phys object
         pass

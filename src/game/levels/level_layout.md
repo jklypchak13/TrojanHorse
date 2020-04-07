@@ -10,7 +10,7 @@ Below is a description of each of these pieces of data.
 
 ## Naming Convention
 
-The name of a level file should be level_{n}.json where n is the integer number that represents that level.
+The name of a level file should be level\_{n}.json where n is the integer number that represents that level.
 
 ## Starting Position
 
@@ -35,3 +35,10 @@ This piece of data consists of an array of any length. Each element of that arra
 - physics_object[0]: the x_coordinate of the enemy
 - physics_object[1]: the y_coordinate of the enemy
 - physics_object[2]: the x_velocity of the enemy
+
+## Goal
+
+An Array with a length of 2, corresponding to a level's end goal (x, y) coordinate
+
+- goal[0]: end goal x_coordinate
+- goal[1]: end goal y_coordinate
