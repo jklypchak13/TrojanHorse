@@ -38,8 +38,8 @@ class GameState:
                 pygame.Rect(*start_pos, *PLAYER_DIMENSIONS), PLAYER, 0.0, 0.0
             )
         except FileNotFoundError:
-            # You win
-            pass
+            cls.level = 1
+            cls.load_level()
 
     @classmethod
     def next_level(cls) -> None:
