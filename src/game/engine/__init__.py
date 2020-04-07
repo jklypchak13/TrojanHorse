@@ -51,7 +51,13 @@ def game(screen: pygame.Surface, main_clock: pygame.time.Clock) -> None:
         main_clock.tick(60)
 
     if not GameState.player.alive():
-        draw_manager.draw_game_over()
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            draw_manager.draw_game_over()
+            pygame.display.update()
 
 
 def physics_tick(collision_manager: CollisionManager) -> None:

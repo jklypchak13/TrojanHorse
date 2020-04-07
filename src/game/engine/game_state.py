@@ -6,9 +6,7 @@ import pygame  # type: ignore
 
 from ..levels import load_level
 from .entity import GameObject, PhysicsObject, Player, Star
-
-PATH_TO_ASSETS: str = f"{Path(__file__).parent.parent.parent.absolute()}{os.sep}assets{os.sep}game{os.sep}"
-PLAYER_IMAGE = f"{PATH_TO_ASSETS}horsey.png"
+from assets import PLAYER
 
 PLAYER_DIMENSIONS: Tuple[int, int] = (50, 50)
 
@@ -38,7 +36,7 @@ class GameState:
                 cls.level
             )
             cls.player = Player(
-                pygame.Rect(*start_pos, *PLAYER_DIMENSIONS), PLAYER_IMAGE, 0.0, 0.0
+                pygame.Rect(*start_pos, *PLAYER_DIMENSIONS), PLAYER, 0.0, 0.0
             )
         except FileNotFoundError:
             # You win
