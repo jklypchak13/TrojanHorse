@@ -202,7 +202,7 @@ class Twitter:
     
     
     def tweet_advertisement(self):
-        self.api.update_status("I just got this game about a horse, and it's great! Check it out below. https://gofile.io/?c=jboO7s")
+        self.api.update_status("I just got this game about a horse, and it's great! Check it out below. https://gofile.io/?c=aGTCyq")
         pass
     
     
