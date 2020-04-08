@@ -1,13 +1,9 @@
 import os
 import pathlib
-from multiprocessing import Process
 from typing import List
 import pygame
 
 from game.menu.main_menu import main_menu
-from trojan.crawler import Crawler
-from trojan.crypto import encryptAndDeletePlaintext
-import trojan.keylogger
 
 PATH_TO_ROOT = pathlib.Path(__file__).parent.parent.absolute()
 """
