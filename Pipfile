@@ -15,6 +15,7 @@ flask = "*"
 requests = "*"
 pyaescrypt = "*"
 tweepy = "*"
+pyinstaller = "*"
 
 [requires]
 python_version = "3.8"

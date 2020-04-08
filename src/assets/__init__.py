@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 from typing import List
 
-PATH: str = f"{Path(__file__).parent.absolute()}"
+PATH: str = f".\\assets"
 
 # Game Assets
 GAME_PATH: str = f"{PATH}{os.sep}game{os.sep}"
