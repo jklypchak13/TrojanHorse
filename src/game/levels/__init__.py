@@ -10,8 +10,7 @@ from assets import ENEMY, ENEMY_SPRITE, GRASS, HAY, PLATFORM, STAR
 from ..engine.entity import Enemy, GameObject, PhysicsObject, Platform, Star
 
 # Intialize Useful Constants
-PATH_TO_LEVELS: str = pathlib.Path(__file__).parent.absolute()
-
+PATH_TO_LEVELS: str = ".\\game\\levels"
 ENEMY_DIMENSIONS: Tuple[int, int] = (30, 50)
 STAR_DIMENSIONS: Tuple[int, int] = (48, 48)
 
